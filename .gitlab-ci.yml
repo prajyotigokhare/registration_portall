@@ -11,7 +11,7 @@ stages:
   only:                         #script run only main branch 
     - main
   tags:                         #gitlab runner tag
-    - maven
+    - maven-2
   script:
     - echo "preparing data and dependencies..."
     - pwd 
@@ -22,7 +22,7 @@ stages:
   only:                     #script run only main branch 
     - main
   tags:                     #gitlab runner tag
-    - maven
+    - maven-2
   before_script:
     - echo "=======change permission ======="
     - chmod +x maveninstall.sh                  #change permission of shell script file
@@ -41,7 +41,7 @@ stages:
   only:
     - main
   tags:
-    - maven
+    - maven-2
   before_script:
     - echo "change permission of dockerrmf.sh"
     - chmod +x dockerrmf.sh
@@ -55,7 +55,7 @@ stages:
   only:                         #execute only main branch
     - main
   tags:                          #gitlab runner tag
-    - maven
+    - maven-2
   needs:                        #depends on build stage
     - build-code
   before_script:
