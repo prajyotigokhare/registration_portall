@@ -1,65 +1,78 @@
-image: maven:3.8.6-jdk-11       #pull maven image
+# You can override the included template(s) by including variable overrides
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
+# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
+# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+sast:
+  stage: test
+  tags:
+  - maven-2
+include:
+- template: Security/SAST.gitlab-ci.yml
+
+
+
+image: maven:3.8.6-jdk-11
 stages:
-  - pull
-  - build
-  - remove-d
-  - build-image
-
-
-"pull-code":                       #Pull Stage
+- pull
+- build
+- remove-d
+- build-image
+- test
+pull-code:
   stage: pull
-  only:                         #script run only main branch 
-    - main
-  tags:                         #gitlab runner tag
-    - maven-2
+  only:
+  - main
+  tags:
+  - maven-2
   script:
-    - echo "preparing data and dependencies..."
-    - pwd 
-    - ls
-  
-"build-code":                 #Build Stage
+  - echo "preparing data and dependencies..."
+  - pwd
+  - ls
+build-code:
   stage: build
-  only:                     #script run only main branch 
-    - main
-  tags:                     #gitlab runner tag
-    - maven-2
+  only:
+  - main
+  tags:
+  - maven-2
   before_script:
-    - echo "=======change permission ======="
-    - chmod +x maveninstall.sh                  #change permission of shell script file
+  - echo "=======change permission ======="
+  - chmod +x maveninstall.sh
   script:
-    - echo "==== Project Building Started ====="
-    - ./maveninstall.sh                     #execute shell file & build the code
-    - echo "code build Successfull..."
-    - pwd                               # present working directory 
-  when: on_success          #after build successfull condition
-  artifacts:                  # creating artifact
-    paths:                      
-      - target/*.war          #artifact path
-    expire_in: 15 days         #expire artifact 
-"remove-old-docker":
+  - echo "==== Project Building Started ====="
+  - "./maveninstall.sh"
+  - echo "code build Successfull..."
+  - pwd
+  when: on_success
+  artifacts:
+    paths:
+    - target/*.war
+    expire_in: 15 days
+remove-old-docker:
   stage: remove-d
   only:
-    - main
+  - main
   tags:
-    - maven-2
+  - maven-2
   before_script:
-    - echo "change permission of dockerrmf.sh"
-    - chmod +x dockerrmf.sh
+  - echo "change permission of dockerrmf.sh"
+  - chmod +x dockerrmf.sh
   script:
-    - echo "Starting remove old docker image and container"
-    - ./dockerrmf.sh
-    - echo "Removed all docker image and container"
-    
-"build-docker-image":
-  stage: build-image          # building docker image
-  only:                         #execute only main branch
-    - main
-  tags:                          #gitlab runner tag
-    - maven-2
-  needs:                        #depends on build stage
-    - build-code
+  - echo "Starting remove old docker image and container"
+  - "./dockerrmf.sh"
+  - echo "Removed all docker image and container"
+build-docker-image:
+  stage: build-image
+  only:
+  - main
+  tags:
+  - maven-2
+  needs:
+  - build-code
   before_script:
-    - chmod +x dockercmd.sh 
+  - chmod +x dockercmd.sh
   script:
-    - ./dockercmd.sh
-    - echo "====Build And Deploy successfull.... ====="
+  - "./dockercmd.sh"
+  - echo "====Build And Deploy successfull.... ====="
