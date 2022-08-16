@@ -47,7 +47,6 @@ secret_detection:
   tags:
     - docker
   
-
 pull-code:
   stage: pull
   only:
