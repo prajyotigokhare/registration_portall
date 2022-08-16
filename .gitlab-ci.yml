@@ -25,27 +25,27 @@ stages:
 code_quality:
   stage: test
   tags:
-    - maven-2
+    - docker
 
 dependency_scanning:
   stage: test
   tags:
-    - maven-2
+    - docker
 
 sast:
   stage: test
   tags:
-    - maven-2
+    - docker
 
 license_scanning:
   stage: test
   tags:
-    - maven-2
+    - docker
 
 secret_detection:
   stage: test
   tags:
-    - maven-2
+    - docker
   
 
 pull-code:
