@@ -25,7 +25,7 @@ stages:
 code_quality:
   stage: test
   tags:
-    - docker
+    - maven-2
 
 dependency_scanning:
   stage: test
