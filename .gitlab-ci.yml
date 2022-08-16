@@ -1,10 +1,53 @@
+# You can override the included template(s) by including variable overrides
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
+# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
+# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+
+include:
+  - template: Jobs/Code-Quality.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml 
+
+
 image: maven:3.8.6-jdk-11
 stages:
 - pull
+- test
 - build
 - remove-d
 - build-image
-- test
+
+code_quality:
+  stage: test
+  tags:
+    - maven-2
+
+dependency_scanning:
+  stage: test
+  tags:
+    - maven-2
+
+sast:
+  stage: test
+  tags:
+    - maven-2
+
+license_scanning:
+  stage: test
+  tags:
+    - maven-2
+
+secret_detection:
+  stage: test
+  tags:
+    - maven-2
+  
+
 pull-code:
   stage: pull
   only:
@@ -15,6 +58,7 @@ pull-code:
   - echo "preparing data and dependencies..."
   - pwd
   - ls
+
 build-code:
   stage: build
   only:
@@ -34,6 +78,7 @@ build-code:
     paths:
     - target/*.war
     expire_in: 15 days
+
 remove-old-docker:
   stage: remove-d
   only:
@@ -47,6 +92,7 @@ remove-old-docker:
   - echo "Starting remove old docker image and container"
   - "./dockerrmf.sh"
   - echo "Removed all docker image and container"
+
 build-docker-image:
   stage: build-image
   only:
