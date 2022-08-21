@@ -7,11 +7,23 @@
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 
 include:
+ 
   - template: Jobs/Code-Quality.gitlab-ci.yml
   - template: Security/Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml 
+  - template: Security/API-Fuzzing.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+  - template: Security/Coverage-Fuzzing.gitlab-ci.yml
+  - template: Security/DAST-API.gitlab-ci.yml
+  - template: Security/DAST-On-Demand-API-Scan.gitlab-ci.yml
+  - template: Security/DAST-On-Demand-Scan.gitlab-ci.yml
+  - template: Security/DAST.gitlab-ci.yml
+  - template: Verify/Load-Performance-Testing.gitlab-ci.yml
+  - template: Verify/Browser-Performance.gitlab-ci.yml
+
+
 
 
 image: maven:3.8.6-jdk-11
