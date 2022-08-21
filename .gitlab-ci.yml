@@ -126,7 +126,7 @@ dast:
   script: 
     - echo "dast stage"
   tags:
-    - STARK
+    - maven-2
 
 performance:
   stage: performance
