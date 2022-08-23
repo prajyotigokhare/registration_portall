@@ -17,8 +17,6 @@ include:
   - template: Security/DAST-On-Demand-API-Scan.gitlab-ci.yml
   - template: Security/DAST-On-Demand-Scan.gitlab-ci.yml
   - template: Security/DAST.gitlab-ci.yml
-  - template: Verify/Load-Performance-Testing.gitlab-ci.yml
-  - template: Verify/Browser-Performance.gitlab-ci.yml
 
 
 
