@@ -34,6 +34,11 @@ stages:
 - .post
 
 
+cache:
+  paths:
+    - data/
+
+
 code_quality:
   stage: test
   tags:
@@ -54,15 +59,14 @@ license_scanning:
   tags:
     - docker
 
+
+
 secret_detection:
   stage: test
   tags:
     - docker
 
-Container-Scanning:
-  stage: test
-  tags:
-    - docker
+
     
 pull-code:
   stage: pull
@@ -108,6 +112,8 @@ remove-old-docker:
   - echo "Starting remove old docker image and container"
   - "./dockerrmf.sh"
   - echo "Removed all docker image and container"
+
+
 
 build-docker-image:
   stage: build-image
