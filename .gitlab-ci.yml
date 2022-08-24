@@ -58,7 +58,12 @@ secret_detection:
   stage: test
   tags:
     - docker
-  
+
+Container-Scanning:
+  stage: test
+  tags:
+    - docker
+    
 pull-code:
   stage: pull
   only:
