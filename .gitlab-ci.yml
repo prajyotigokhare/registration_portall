@@ -130,6 +130,13 @@ build-docker-image:
   - echo "====Build And Deploy successfull.... ====="
 
 
+Container-scanning:
+  stage: test
+  script:
+    - echo "container scanning is start"
+  tags:
+    - docker
+
 dast:
   stage: dast
   script: 
