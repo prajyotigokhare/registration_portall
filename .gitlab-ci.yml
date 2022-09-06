@@ -41,7 +41,7 @@ cache:
 code_quality:
   stage: test
   tags:
-    - maven-2
+    - docker
 
 dependency_scanning:
   stage: test
