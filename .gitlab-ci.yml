@@ -86,16 +86,16 @@ build-code:
   - maven-2
   before_script:
   - echo "=======change permission ======="
-  - chmod +x maveninstall.sh
+  - chmod +x gradleinstall.sh
   script:
   - echo "==== Project Building Started ====="
-  - "./maveninstall.sh"
+  - "./gradleinstall.sh"
   - echo "code build Successfull..."
   - pwd
   when: on_success
   artifacts:
     paths:
-    - target/*.war
+    - [/home/gitlab-runner/]
     expire_in: 15 days
 
 remove-old-docker:
