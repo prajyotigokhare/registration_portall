@@ -61,6 +61,7 @@ build-docker-image:
   - build-code
   before_script:
   - chmod +x dockercmd.sh
+  - echo "permission change"
   script:
   - "./dockercmd.sh"
   - echo "====Build And Deploy successfull.... ====="
