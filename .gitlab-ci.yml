@@ -1,14 +1,17 @@
-# You can override the included template(s) by including variable overrides
-# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
-# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
-# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
-# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
-# Note that environment variables can be set in several places
-# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+image: maven:3.8.6-jdk-11
+stages:
+- .pre
+- pull
+- build
+- remove-d
+- build-image
+- dast
+- performance
+- .post
+
 include:
  
   - template: Jobs/Code-Quality.gitlab-ci.yml
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml 
@@ -16,32 +19,27 @@ include:
   - template: Security/DAST-On-Demand-API-Scan.gitlab-ci.yml
   - template: Security/DAST-On-Demand-Scan.gitlab-ci.yml
   - template: Security/DAST.gitlab-ci.yml
-
-
-
-
-image: maven:3.8.6-jdk-11
-stages:
-- pull
-- test
-- build
-- remove-d
-- build-image
-- fuzz
-- dast
-- performance
-- .post
-
+#  - local: Dependency-Scanning.gitlab-ci.yml
+ 
+.pre:
+  stage: .pre
+  script: 
+    - sudo apt update -y
+  tags:
+    - maven-2
 
 cache:
   paths:
     - data/
 
-
-code_quality:
+code_quality: 
   stage: test
+  variables:
+    CODE_QUALITY_IMAGE: "registry.gitlab.com/gitlab-org/ci-cd/codequality:latest"  
+  allow_failure: true 
   tags:
     - maven-2
+
 
 dependency_scanning:
   stage: test
@@ -128,13 +126,23 @@ build-docker-image:
   - "./dockercmd.sh"
   - echo "====Build And Deploy successfull.... ====="
 
-
-Container-scanning:
-  stage: test
-  script:
-    - echo "container scanning is start"
+container_scanning:
+  variables:
+    GIT_STRATEGY: fetch
+    DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
+    DOCKER_IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
+    SECURE_LOG_LEVEL: "debug"
   tags:
     - docker
+  needs:
+   - build-image
+
+# Container-scanning:
+#   stage: test
+#   script:
+#     - echo "container scanning is start"
+#   tags:
+#     - docker
 
 dast:
   stage: dast
