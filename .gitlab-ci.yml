@@ -1,45 +1,39 @@
 image: maven:3.8.6-jdk-11
 stages:
-- .pre
-- pull
-- build
-- remove-d
-- build-image
-- dast
-- performance
-- .post
+  - .pre
+  - pull
+  - test
+  - build 
+  - remove-d
+  - build-image
+  - performance
+  - .post
 
 include:
  
   - template: Jobs/Code-Quality.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml 
   - template: Security/Container-Scanning.gitlab-ci.yml
-  - template: Security/DAST-On-Demand-API-Scan.gitlab-ci.yml
-  - template: Security/DAST-On-Demand-Scan.gitlab-ci.yml
-  - template: Security/DAST.gitlab-ci.yml
-#  - local: Dependency-Scanning.gitlab-ci.yml
- 
-.pre:
-  stage: .pre
-  script: 
-    - sudo apt update -y
-  tags:
-    - maven-2
+#  - template: Security/DAST-On-Demand-API-Scan.gitlab-ci.yml
+#  - template: Security/DAST-On-Demand-Scan.gitlab-ci.yml
+#  - template: Security/DAST.gitlab-ci.yml
+
+
+
+
 
 cache:
   paths:
     - data/
 
-code_quality: 
+
+code_quality:
   stage: test
-  variables:
-    CODE_QUALITY_IMAGE: "registry.gitlab.com/gitlab-org/ci-cd/codequality:latest"  
-  allow_failure: true 
   tags:
     - maven-2
-
 
 dependency_scanning:
   stage: test
@@ -63,7 +57,12 @@ secret_detection:
   tags:
     - docker
 
-
+.pre:
+  stage: .pre
+  script: 
+    - sudo apt update -y
+  tags:
+    - maven-2
     
 pull-code:
   stage: pull
@@ -126,30 +125,20 @@ build-docker-image:
   - "./dockercmd.sh"
   - echo "====Build And Deploy successfull.... ====="
 
-container_scanning:
-  variables:
-    GIT_STRATEGY: fetch
-    DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
-    DOCKER_IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
-    SECURE_LOG_LEVEL: "debug"
+
+Container-scanning:
+  stage: test
+  script:
+    - echo "container scanning is start"
   tags:
     - docker
-  needs:
-   - build-image
 
-# Container-scanning:
-#   stage: test
-#   script:
-#     - echo "container scanning is start"
+# dast:
+#   stage: dast
+#   script: 
+#     - echo "dast stage"
 #   tags:
-#     - docker
-
-dast:
-  stage: dast
-  script: 
-    - echo "dast stage"
-  tags:
-    - maven-2
+#     - maven-2
 
 performance:
   stage: performance
