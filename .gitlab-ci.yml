@@ -35,19 +35,19 @@ build-code:
     - .target/*.war
     expire_in: 15 days
 
-remove-old-docker:
-  stage: remove-d
-  only:
-  - main
-  tags:
-  - java_deploy
-  before_script:
-  - echo "change permission of dockerrmf.sh"
-  - chmod +x dockerrmf.sh
-  script:
-  - echo "Starting remove old docker image and container"
-  - "./dockerrmf.sh"
-  - echo "Removed all docker image and container"
+# remove-old-docker:
+#   stage: remove-d
+#   only:
+#   - main
+#   tags:
+#   - java_deploy
+#   before_script:
+#   - echo "change permission of dockerrmf.sh"
+#   - chmod +x dockerrmf.sh
+#   script:
+#   - echo "Starting remove old docker image and container"
+#   - "./dockerrmf.sh"
+#   - echo "Removed all docker image and container"
 
 
 
