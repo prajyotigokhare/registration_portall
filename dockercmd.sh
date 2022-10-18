@@ -1,5 +1,5 @@
 docker info                 
-docker build --no-cache  -t $image_name .  # Build docker image frm dockerfile
-docker run -itd -p 8080:8080  --name $cont_name $image_name   #create container using docker image 
+docker build -t fineshift_emp .  # Build docker image frm dockerfile
+docker run -itd -p 8080:8080  --name fineshift_emp_info fineshift_emp   #create container using docker image 
 docker ps 
-docker inspect $cont_name  # getting info about container     
+docker inspect fineshift_emp_info  # getting info about container     
