@@ -9,7 +9,7 @@ pull-code:
   only:
   - main
   tags:
-  - maven-2
+  - java_deploy
   script:
   - echo "preparing data and dependencies..."
   - pwd
@@ -20,7 +20,7 @@ build-code:
   only:
   - main
   tags:
-  - maven-2
+  - java_deploy
   before_script:
   - echo "=======change permission ======="
   - chmod +x maveninstall.sh
@@ -40,7 +40,7 @@ remove-old-docker:
   only:
   - main
   tags:
-  - maven-2
+  - java_deploy
   before_script:
   - echo "change permission of dockerrmf.sh"
   - chmod +x dockerrmf.sh
@@ -56,7 +56,7 @@ build-docker-image:
   only:
   - main
   tags:
-  - maven-2
+  - java_deploy
   needs:
   - build-code
   before_script:
