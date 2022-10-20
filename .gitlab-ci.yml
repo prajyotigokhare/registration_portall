@@ -48,7 +48,7 @@ code_quality:
     CODE_QUALITY_IMAGE: "registry.gitlab.com/gitlab-org/ci-cd/codequality:latest"  
   allow_failure: true
   tags:
-    - code-quality
+    - Docker_java_deploy
 
 fuzz:
   stage: fuzz
