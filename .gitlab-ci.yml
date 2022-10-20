@@ -32,7 +32,7 @@ build-code:
   when: on_success
   artifacts:
     paths:
-    - .target/*.war
+    - target/*.war
     expire_in: 15 days
 
 # remove-old-docker:
