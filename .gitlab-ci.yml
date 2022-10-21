@@ -13,16 +13,16 @@ stages:
   - .post
 
 include:
-  - template: Jobs/Code-Quality.gitlab-ci.yml
+  # - template: Jobs/Code-Quality.gitlab-ci.yml
  # - local: Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
-  - template: Jobs/Build.gitlab-ci.yml
-  - template: Security/Container-Scanning.gitlab-ci.yml
-  - template: Security/Coverage-Fuzzing.gitlab-ci.yml
-  - template: Security/DAST-API.gitlab-ci.yml
-  - template: Security/DAST-On-Demand-API-Scan.gitlab-ci.yml
-  - template: Security/DAST-On-Demand-Scan.gitlab-ci.yml
-  - template: Security/DAST.gitlab-ci.yml
+  # - template: Jobs/Build.gitlab-ci.yml
+  # - template: Security/Container-Scanning.gitlab-ci.yml
+  # - template: Security/Coverage-Fuzzing.gitlab-ci.yml
+  # - template: Security/DAST-API.gitlab-ci.yml
+  # - template: Security/DAST-On-Demand-API-Scan.gitlab-ci.yml
+  # - template: Security/DAST-On-Demand-Scan.gitlab-ci.yml
+  # - template: Security/DAST.gitlab-ci.yml
 
 .pre:
   stage: .pre
@@ -42,20 +42,20 @@ pull-code:
   - pwd
   - ls
 
-code_quality: 
-  stage: test
-  variables:
-    CODE_QUALITY_IMAGE: "registry.gitlab.com/gitlab-org/ci-cd/codequality:latest"  
-  allow_failure: true
-  tags:
-    - Docker_java_deploy
+# code_quality: 
+#   stage: test
+#   variables:
+#     CODE_QUALITY_IMAGE: "registry.gitlab.com/gitlab-org/ci-cd/codequality:latest"  
+#   allow_failure: true
+#   tags:
+#     - Docker_java_deploy
 
-fuzz:
-  stage: fuzz
-  script: 
-    - echo "fuzz stage"
-  tags:
-    - java_deploy
+# fuzz:
+#   stage: fuzz
+#   script: 
+#     - echo "fuzz stage"
+#   tags:
+#     - java_deploy
 
 SAST:
   tags:
