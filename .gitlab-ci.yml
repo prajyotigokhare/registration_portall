@@ -22,7 +22,7 @@ include:
   # - template: Security/DAST-API.gitlab-ci.yml
   # - template: Security/DAST-On-Demand-API-Scan.gitlab-ci.yml
   # - template: Security/DAST-On-Demand-Scan.gitlab-ci.yml
-  # - template: Security/DAST.gitlab-ci.yml
+  - template: Security/DAST.gitlab-ci.yml
 
 .pre:
   stage: .pre
@@ -56,6 +56,13 @@ pull-code:
 #     - echo "fuzz stage"
 #   tags:
 #     - java_deploy
+
+    
+dast:
+  tags:
+    - java_deploy
+  script:
+    - echo "Test OK"  
 
 SAST:
   tags:
