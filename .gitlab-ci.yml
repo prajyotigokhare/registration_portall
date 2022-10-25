@@ -13,7 +13,7 @@ stages:
   - .post
 
 include:
-  # - template: Jobs/Code-Quality.gitlab-ci.yml
+  - template: Jobs/Code-Quality.gitlab-ci.yml
  # - local: Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
   # - template: Jobs/Build.gitlab-ci.yml
@@ -42,13 +42,13 @@ pull-code:
   - pwd
   - ls
 
-# code_quality: 
-#   stage: test
-#   variables:
-#     CODE_QUALITY_IMAGE: "registry.gitlab.com/gitlab-org/ci-cd/codequality:latest"  
-#   allow_failure: true
-#   tags:
-#     - Docker_java_deploy
+code_quality: 
+  stage: test
+  variables:
+    CODE_QUALITY_IMAGE: "registry.gitlab.com/gitlab-org/ci-cd/codequality:latest"  
+  allow_failure: true
+  tags:
+    - Docker_java_deploy
 
 # fuzz:
 #   stage: fuzz
