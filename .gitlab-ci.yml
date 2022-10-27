@@ -92,6 +92,17 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
+container_scanning:
+  variables:
+    GIT_STRATEGY: fetch
+    DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
+    DOCKER_IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
+    SECURE_LOG_LEVEL: "debug"
+  tags:
+    - Docker_java_deploy
+  needs:
+   - build-image
+
 remove-old-docker:
   stage: remove-d
   only:
