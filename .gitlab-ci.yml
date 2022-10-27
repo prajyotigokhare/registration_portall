@@ -100,8 +100,7 @@ container_scanning:
     SECURE_LOG_LEVEL: "debug"
   tags:
     - Docker_java_deploy
-  needs:
-   - build-image
+
 
 remove-old-docker:
   stage: remove-d
