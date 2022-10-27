@@ -106,7 +106,6 @@ remove-old-docker:
   - echo "Removed all docker image and container"
 
 
-
 build-docker-image:
   stage: build-image
   only:
