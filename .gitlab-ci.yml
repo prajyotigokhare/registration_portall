@@ -17,7 +17,7 @@ include:
  # - local: Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
   - template: Jobs/License-Scanning.gitlab-ci.yml
-  # - template: Jobs/Build.gitlab-ci.yml
+  - template: Jobs/Build.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
   # - template: Security/Coverage-Fuzzing.gitlab-ci.yml
   # - template: Security/DAST-API.gitlab-ci.yml
@@ -100,6 +100,8 @@ container_scanning:
     SECURE_LOG_LEVEL: "debug"
   tags:
     - Docker_java_deploy
+  needs:
+   - build-docker-image
 
 
 remove-old-docker:
