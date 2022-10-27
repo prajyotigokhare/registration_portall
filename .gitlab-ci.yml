@@ -25,12 +25,12 @@ include:
   # - template: Security/DAST-On-Demand-Scan.gitlab-ci.yml
   - template: Security/DAST.gitlab-ci.yml
 
-workflow:
- rules:
-   - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-   - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^test-env/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != $CI_DEFAULT_BRANCH
-     when: never
-   - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^test-env/
+# workflow:
+#  rules:
+#    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+#    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^test-env/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != $CI_DEFAULT_BRANCH
+#      when: never
+#    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^test-env/
 
 
 
