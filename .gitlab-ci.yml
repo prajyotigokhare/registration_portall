@@ -28,9 +28,9 @@ include:
 workflow:
  rules:
    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-   - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^main/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != $CI_DEFAULT_BRANCH
+   - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^test-env/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != $CI_DEFAULT_BRANCH
      when: never
-   - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^main/
+   - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^test-env/
 
 
 
