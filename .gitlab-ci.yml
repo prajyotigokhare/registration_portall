@@ -32,6 +32,12 @@ include:
 #      when: never
 #    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^test-env/
 
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE != "merge_request_event"      
+      when: never
+    - when: always
+
 
 
 .pre:
