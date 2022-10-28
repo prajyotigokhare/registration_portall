@@ -20,7 +20,7 @@ stages:
 
 include:
   - template: Jobs/Code-Quality.gitlab-ci.yml
- # - local: Dependency-Scanning.gitlab-ci.yml
+  - local: Dependency-Scanning.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
   - template: Jobs/License-Scanning.gitlab-ci.yml
   #- template: Jobs/Build.gitlab-ci.yml
@@ -73,7 +73,10 @@ code_quality:
 #     - echo "fuzz stage"
 #   tags:
 #     - java_deploy
-
+gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
+  tags:
+    - Docker_java_deploy
+     
     
 dast:
   tags:
