@@ -18,7 +18,7 @@ include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Jobs/License-Scanning.gitlab-ci.yml
   #- template: Jobs/Build.gitlab-ci.yml
-  # - template: Security/Container-Scanning.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
   # - template: Security/Coverage-Fuzzing.gitlab-ci.yml
   # - template: Security/DAST-API.gitlab-ci.yml
   # - template: Security/DAST-On-Demand-API-Scan.gitlab-ci.yml
@@ -80,8 +80,13 @@ SAST:
   stage: test
   script:
     - echo "Test the job"  
+variables:
+    IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
+    DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
 
 build-code:
+  image: docker:20.10.12
+  allow_failure: true
   stage: build
   only:
   - main
@@ -90,10 +95,15 @@ build-code:
   before_script:
   - echo "=======change permission ======="
   - chmod +x maveninstall.sh
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
   script:
   - echo "==== Project Building Started ====="
   - "./maveninstall.sh"
   - echo "code build Successfull..."
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  - docker build --tag $IMAGE -f $DOCKERFILE_PATH .
+  - docker push $IMAGE
+
   - pwd
   when: on_success
   artifacts:
@@ -101,16 +111,16 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
-# container_scanning:
-#   variables:
-#     GIT_STRATEGY: fetch
-#     DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
-#     DOCKER_IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
-#     SECURE_LOG_LEVEL: "debug"
-#   tags:
-#     - Docker_java_deploy
-#   needs:
-#    - build-docker-image
+container_scanning:
+  variables:
+    GIT_STRATEGY: fetch
+    DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
+    DOCKER_IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
+    SECURE_LOG_LEVEL: "debug"
+  tags:
+    - Docker_java_deploy
+  needs:
+   - build-docker-image
 
 
 remove-old-docker:
