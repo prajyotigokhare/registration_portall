@@ -76,6 +76,7 @@ code_quality:
 gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
   tags:
     - Docker_java_deploy
+  stage: test
      
     
 dast:
