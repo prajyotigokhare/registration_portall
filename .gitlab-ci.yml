@@ -84,7 +84,7 @@ code_quality:
 gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
   tags:
     - java_deploy     
-
+  stage: test
 
 dast:
   tags:
