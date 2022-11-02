@@ -74,13 +74,18 @@ code_quality:
 #   tags:
 #     - java_deploy  
      
-gemnasium-dependency_scanning:
-  variables:
-    DS_REMEDIATE: "false"
+# gemnasium-dependency_scanning:
+#   variables:
+#     DS_REMEDIATE: "false"
+#   tags:
+#     - java_deploy
+#   stage: test
+
+gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
   tags:
-    - java_deploy
-  stage: test
-  
+    - java_deploy     
+
+
 dast:
   tags:
     - java_deploy
