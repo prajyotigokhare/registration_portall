@@ -73,7 +73,7 @@ code_quality:
 #     - echo "fuzz stage"
 #   tags:
 #     - java_deploy
-gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
+gemnasium-dependency_scanning:
   tags:
     - java_deploy
   stage: test
