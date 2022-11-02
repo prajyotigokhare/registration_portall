@@ -72,13 +72,15 @@ code_quality:
 #   script: 
 #     - echo "fuzz stage"
 #   tags:
-#     - java_deploy
+#     - java_deploy  
+     
 gemnasium-dependency_scanning:
+  variables:
+    DS_REMEDIATE: "false"
   tags:
     - java_deploy
   stage: test
-     
-    
+  
 dast:
   tags:
     - java_deploy
