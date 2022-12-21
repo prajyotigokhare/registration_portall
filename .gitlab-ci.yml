@@ -15,6 +15,7 @@ workflow:
 image: maven:3.8.6-jdk-11
 
 
+
 stages:
 - ".pre"
 - pull
@@ -67,6 +68,7 @@ gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
   tags:
   - java_deploy
   stage: test
+  
 
 dast:
   tags:
@@ -88,7 +90,7 @@ SAST:
   - java_deploy
   stage: test
   script:
-  - echo "Test the job" 
+  - echo "test the job..." 
     
 spotbugs-sast:
   extends: .sast-analyzer
