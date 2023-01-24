@@ -168,3 +168,6 @@ build-docker-image:
   script:
   - "./dockercmd.sh"
   - echo "====Build And Deploy successfull.... ====="
+
+
+  
