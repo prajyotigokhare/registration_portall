@@ -1,4 +1,12 @@
+# workflow:
+#   rules:
+#   - if: $CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE != "merge_request_event"
+#     when: never
+#   - when: always
+
 image: maven:3.8.6-jdk-11
+
+
 
 stages:
 - build
@@ -10,11 +18,13 @@ include:
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
-
+# - template: Security/Coverage-Fuzzing.gitlab-ci.yml
 
 
 build-code:
   stage: build
+  # only:
+  # - main
   tags:
   - aktest
   before_script:
@@ -31,7 +41,6 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
-
 sast:
   stage: test
   tags:
@@ -45,7 +54,6 @@ sast:
    when: always
   script:
     - echo "testing the SAST job"
-
 
 license_scanning:
   stage: test
@@ -62,7 +70,6 @@ license_scanning:
       - gl-license-scanning-report.json 
     expire_in: never    
 
-
 code_quality:
   stage: test
   artifacts:
@@ -74,17 +81,20 @@ gemnasium-maven-dependency_scanning:
   stage: test
   tags:
     - aktest
+  # artifacts:
+  #  name: dependency_scanning
+  #  paths:
+  #    - gl-sbom-*.cdx.json
+  #  reports:
+  #    dependency_scanning: gl-sbom-*.cdx.json
   artifacts:
-   name: dependency_scanning
-   paths:
-    #  - gl-dependency-scanning-report.json 
-    #  - retire-jsrepository.json
-    #  - sbom-manifest.json
-     - gl-sbom-*.cdx.json
-   reports:
-     dependency_scanning: gl-sbom-*.cdx.json
-   expire_in: never      
-   when: always
+    name: dependency-scanning
+    paths:
+      - gl-dependency-scanning.json
+
+# variables:
+#   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
+#   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
 
 
 
