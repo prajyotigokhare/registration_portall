@@ -9,16 +9,9 @@ image: maven:3.8.6-jdk-11
 
 
 stages:
-# - ".pre"
-# - pull
 - build
-# - remove-d
-# - build-image
 - test
-# - fuzz
-# - dast
-# - performance
-# - ".post"
+
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml 
@@ -27,40 +20,6 @@ include:
   - template: Security/License-Scanning.gitlab-ci.yml
 # - template: Security/Coverage-Fuzzing.gitlab-ci.yml
 
-
-# ".pre":
-#   stage: ".pre"
-#   script:
-#   - echo "pre stage"
-#   tags:
-#   - java_deploy
-
-# pull-code:
-#   stage: pull
-#   only:
-#   - main
-#   tags:
-#   - java_deploy
-#   script:
-#   - echo "preparing data and dependencies..."
-#   - pwd
-#   - ls
-
-
-  
-
-# dast:
-#   tags:
-#   - java_deploy
-#   script:
-#   - echo "Test OK"
-
-# .post:
-#   stage: .post
-#   script: 
-#     - echo "post stage"
-#   tags:
-#     - java_deploy        
 
 build-code:
   stage: build
@@ -81,36 +40,6 @@ build-code:
     paths:
     - target/*.war
     expire_in: 15 days
-
-# remove-old-docker:
-#   stage: remove-d
-#   only:
-#   - main
-#   tags:
-#   - java_deploy
-#   before_script:
-#   - echo "change permission of dockerrmf.sh"
-#   - chmod +x dockerrmf.sh
-#   script:
-#   - echo "Starting remove old docker image and container"
-#   - "./dockerrmf.sh"
-#   - echo "Removed all docker image and container"
-
-# build-docker-image:
-#   stage: build-image
-#   only:
-#   - main
-#   tags:
-#   - java_deploy
-#   needs:
-#   - build-code
-#   before_script:
-#   - chmod +x dockercmd.sh
-#   - echo "permission change"
-#   script:
-#   - "./dockercmd.sh"
-#   - echo "====Build And Deploy successfull.... ====="
-
 
 sast:
   stage: test
@@ -139,13 +68,21 @@ gemnasium-maven-dependency_scanning:
   stage: test
   tags:
     - aktest
+  # artifacts:
+  #  name: dependency_scanning
+  #  paths:
+  #    - gl-sbom-*.cdx.json
+  #  reports:
+  #    dependency_scanning: gl-sbom-*.cdx.json
   artifacts:
-   name: dependency_scanning
-   paths:
-     - gl-sbom-*.cdx.json
-   reports:
-     dependency_scanning: gl-sbom-*.cdx.json
-   when: always
+    paths:
+      - gl-dependency-scanning-report.json 
+      - retire-jsrepository.json
+      - sbom-manifest.json
+    expire_in: never  
+    reports:
+      cyclonedx: "*/gl-sbom-.cdx.json"     
+    when: always
 
 # variables:
 #   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
