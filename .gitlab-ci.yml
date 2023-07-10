@@ -84,8 +84,8 @@ gemnasium-maven-dependency_scanning:
   artifacts:
     name: dependency-scanning
     paths:
-      - gl-sbom-*.cdx.json
-    # reports: 
+      - gl-dependency-scanning.json
+
     #   dependency-scanning: gl-sbom-*.cdx.json
     # when: always
 # variables:
