@@ -23,8 +23,8 @@ include:
 
 build-code:
   stage: build
-  only:
-  - main
+  # only:
+  # - main
   tags:
   - aktest
   before_script:
@@ -55,7 +55,20 @@ sast:
   script:
     - echo "testing the SAST job"
 
-
+license_scanning:
+  stage: test
+  tags:
+      - aktest
+  dependencies: []
+  rules:
+    - if: $LICENSE_MANAGEMENT_DISABLED
+      when: never
+    - if: $CI_COMMIT_BRANCH &&
+          $GITLAB_FEATURES =~ /\blicense_scanning\b/
+  artifacts:
+    paths:
+      - gl-license-scanning-report.json 
+    expire_in: never    
 
 code_quality:
   stage: test
@@ -80,8 +93,8 @@ gemnasium-maven-dependency_scanning:
       - retire-jsrepository.json
       - sbom-manifest.json
     expire_in: never  
-    reports:
-      cyclonedx: "*/gl-sbom-.cdx.json"     
+    # reports:
+    #   cyclonedx: "*/gl-sbom-.cdx.json"     
     when: always
 
 # variables:
