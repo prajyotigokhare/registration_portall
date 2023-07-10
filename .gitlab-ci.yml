@@ -23,20 +23,19 @@ stages:
 - remove-d
 - build-image
 - test
-- fuzz
-- sast
-- dast
+# - fuzz
+# - dast
 - performance
 - ".post"
 include:
-- template: Jobs/Code-Quality.gitlab-ci.yml
-- local: Dependency-Scanning.gitlab-ci.yml
+# - template: Jobs/Code-Quality.gitlab-ci.yml
+# - local: Dependency-Scanning.gitlab-ci.yml
 - template: Security/SAST.gitlab-ci.yml
-- template: Jobs/License-Scanning.gitlab-ci.yml
-- template: Security/Coverage-Fuzzing.gitlab-ci.yml
-- template: Security/Container-Scanning.gitlab-ci.yml
-- template: Security/DAST.gitlab-ci.yml
-- template: Security/Secret-Detection.gitlab-ci.yml
+# - template: Jobs/License-Scanning.gitlab-ci.yml
+# - template: Security/Coverage-Fuzzing.gitlab-ci.yml
+# - template: Security/Container-Scanning.gitlab-ci.yml
+# - template: Security/DAST.gitlab-ci.yml
+# - template: Security/Secret-Detection.gitlab-ci.yml
 
 ".pre":
   stage: ".pre"
@@ -56,64 +55,72 @@ pull-code:
   - pwd
   - ls
 
-code_quality:
-  stage: test
-  variables:
-    CODE_QUALITY_IMAGE: registry.gitlab.com/gitlab-org/ci-cd/codequality:latest
-  allow_failure: true
-  tags:
-  - Docker_java_deploy
+# code_quality:
+#   stage: test
+#   variables:
+#     CODE_QUALITY_IMAGE: registry.gitlab.com/gitlab-org/ci-cd/codequality:latest
+#   allow_failure: true
+#   tags:
+#   - Docker_java_deploy
 
-gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
-  tags:
-  - java_deploy
-  stage: test
+# gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
+#   tags:
+#   - java_deploy
+#   stage: test
   
 
-dast:
-  tags:
-  - java_deploy
-  script:
-  - echo "Test OK"
+# dast:
+#   tags:
+#   - java_deploy
+#   script:
+#   - echo "Test OK"
 
-.post:
-  stage: .post
-  script: 
-    - echo "post stage"
-  tags:
-    - java_deploy        
+# .post:
+#   stage: .post
+#   script: 
+#     - echo "post stage"
+#   tags:
+#     - java_deploy        
 
 
 
-SAST:
-  tags:
-  - java_deploy
+sast:
   stage: test
-  script:
-  - echo "test the job..." 
-    
-spotbugs-sast:
-  extends: .sast-analyzer
-  image:
-    name: "$SAST_ANALYZER_IMAGE"
   tags:
-  - java_deploy
-  variables:
-    SAST_ANALYZER_IMAGE_TAG: 3
-    SAST_ANALYZER_IMAGE: "$SECURE_ANALYZERS_PREFIX/spotbugs:$SAST_ANALYZER_IMAGE_TAG"
-  rules:
-    - if: $SAST_EXCLUDED_ANALYZERS =~ /spotbugs/
-      when: never
-    - if: $SAST_EXPERIMENTAL_FEATURES == 'true'
-      exists:
-        - '**/AndroidManifest.xml'
-      when: never
-    - if: $SAST_DISABLED
-      when: never
-    - if: $CI_COMMIT_BRANCH
-      exists:
-        - '**/*.xml'
-        - '**/*.jsp'
+    - aktest
+  artifacts:
+   name: sast
+   paths:
+     - gl-sast-report.json
+   reports:
+     sast: gl-sast-report.json
+   when: always
+  script:
+    - echo "test the job"
+
+    
+# spotbugs-sast:
+#   extends: .sast-analyzer
+#   image:
+#     name: "$SAST_ANALYZER_IMAGE"
+#   tags:
+#   - java_deploy
+#   variables:
+#     SAST_ANALYZER_IMAGE_TAG: 3
+#     SAST_ANALYZER_IMAGE: "$SECURE_ANALYZERS_PREFIX/spotbugs:$SAST_ANALYZER_IMAGE_TAG"
+#   rules:
+#     - if: $SAST_EXCLUDED_ANALYZERS =~ /spotbugs/
+#       when: never
+#     - if: $SAST_EXPERIMENTAL_FEATURES == 'true'
+#       exists:
+#         - '**/AndroidManifest.xml'
+#       when: never
+#     - if: $SAST_DISABLED
+#       when: never
+#     - if: $CI_COMMIT_BRANCH
+#       exists:
+#         - '**/*.xml'
+#         - '**/*.jsp'
 
 
 variables:
