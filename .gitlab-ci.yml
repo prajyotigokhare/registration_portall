@@ -90,9 +90,9 @@ gemnasium-maven-dependency_scanning:
   artifacts:
     name: dependency-scanning
     paths:
-      - gl-dependency-scanning.json
+      - gl-sbom-*.cdx.json
     reports: 
-      dependency-scanning: gl-dependency-scanning.json
+      dependency-scanning: gl-sbom-*.cdx.json
     when: always
 # variables:
 #   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
