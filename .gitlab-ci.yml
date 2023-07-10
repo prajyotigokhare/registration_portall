@@ -140,11 +140,11 @@ gemnasium-maven-dependency_scanning:
   tags:
     - aktest
   artifacts:
-   name: maven-dependency_scanning
+   name: dependency_scanning
    paths:
      - gl-sbom-*.cdx.json
    reports:
-     maven-dependency_scanning: gl-sbom-*.cdx.json
+     dependency_scanning: gl-sbom-*.cdx.json
    when: always
 
 # variables:
