@@ -74,10 +74,15 @@ code_quality:
   stage: test
   artifacts:
     paths: [gl-code-quality-report.json] 
+    expire_in: never  
 
 
 
 gemnasium-maven-dependency_scanning:
+  variables:
+    DS_MAX_DEPTH: 5
+    DS_ANALYZER_NAME: "gemnasium,maven,python"
+    GEMNASIUM_LIBRARY_SCAN_ENABLED: "true"
   stage: test
   tags:
     - aktest
@@ -87,6 +92,7 @@ gemnasium-maven-dependency_scanning:
       - gl-dependency-scanning.json
       - retire-jsrepository.json
       - sbom-manifest.json
+    expire_in: never  
     #   dependency-scanning: gl-sbom-*.cdx.json
     # when: always
 # variables:
