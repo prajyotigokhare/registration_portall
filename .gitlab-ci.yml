@@ -91,7 +91,9 @@ gemnasium-maven-dependency_scanning:
     name: dependency-scanning
     paths:
       - gl-dependency-scanning.json
-
+    reports: 
+      dependency-scanning: gl-dependency-scanning.json
+    when: always
 # variables:
 #   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
 #   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
