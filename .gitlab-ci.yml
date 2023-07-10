@@ -81,19 +81,13 @@ gemnasium-maven-dependency_scanning:
   stage: test
   tags:
     - aktest
-  # artifacts:
-  #  name: dependency_scanning
-  #  paths:
-  #    - gl-sbom-*.cdx.json
-  #  reports:
-  #    dependency_scanning: gl-sbom-*.cdx.json
   artifacts:
     name: dependency-scanning
     paths:
       - gl-sbom-*.cdx.json
-    reports: 
-      dependency-scanning: gl-sbom-*.cdx.json
-    when: always
+    # reports: 
+    #   dependency-scanning: gl-sbom-*.cdx.json
+    # when: always
 # variables:
 #   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
 #   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
