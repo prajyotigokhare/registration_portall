@@ -1,8 +1,8 @@
-workflow:
-  rules:
-  - if: $CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE != "merge_request_event"
-    when: never
-  - when: always
+# workflow:
+#   rules:
+#   - if: $CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE != "merge_request_event"
+#     when: never
+#   - when: always
 
 image: maven:3.8.6-jdk-11
 
@@ -141,6 +141,17 @@ code_quality:
   artifacts:
     paths: [gl-code-quality-report.json] 
 
+# gemnasium-python-dependency_scanning:
+#   stage: test
+#   tags:
+#     - pysast
+#   artifacts:
+#    name: dependency_scanning
+#    paths:
+#      - gl-sbom-*.cdx.json
+#    reports:
+#      dependency_scanning: gl-sbom-*.cdx.json
+#    when: always
     
 # spotbugs-sast:
 #   extends: .sast-analyzer
@@ -166,9 +177,9 @@ code_quality:
 #         - '**/*.jsp'
 
 
-variables:
-  IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
-  DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
+# variables:
+#   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
+#   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
 
 
 
