@@ -85,7 +85,8 @@ gemnasium-maven-dependency_scanning:
     name: dependency-scanning
     paths:
       - gl-dependency-scanning.json
-
+      - retire-jsrepository.json
+      - sbom-manifest.json
     #   dependency-scanning: gl-sbom-*.cdx.json
     # when: always
 # variables:
