@@ -46,10 +46,7 @@ include:
 #   - pwd
 #   - ls
 
-# gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
-#   tags:
-#   - java_deploy
-#   stage: test
+
   
 
 # dast:
@@ -127,7 +124,7 @@ sast:
      sast: gl-sast-report.json
    when: always
   script:
-    - echo "test the job"
+    - echo "testing the SAST job"
 
     
 spotbugs-sast:
@@ -153,28 +150,27 @@ spotbugs-sast:
         - '**/*.xml'
         - '**/*.jsp'
 
+
 code_quality:
   stage: test
   artifacts:
     paths: [gl-code-quality-report.json] 
 
 
-gemnasium-maven-dependency_scanning-and-gemnasium-gradle-dependency_scanning:
-  tags:
-  - aktest
-  stage: test
 
-# gemnasium-python-dependency_scanning:
-#   stage: test
-#   tags:
-#     - pysast
-#   artifacts:
-#    name: dependency_scanning
-#    paths:
-#      - gl-sbom-*.cdx.json
-#    reports:
-#      dependency_scanning: gl-sbom-*.cdx.json
-#    when: always
+
+gemnasium-maven-dependency_scanning:
+  stage: test
+  tags:
+    - aktest
+  artifacts:
+   name: dependency_scanning
+   paths:
+     - gl-sbom-*.cdx.json
+   reports:
+     dependency_scanning: gl-sbom-*.cdx.json
+   when: always
+
 # variables:
 #   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
 #   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
