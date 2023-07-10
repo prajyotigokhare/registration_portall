@@ -1,10 +1,3 @@
-# You can override the included template(s) by including variable overrides
-# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
-# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
-# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
-# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
-# Note that environment variables can be set in several places
-# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 
 workflow:
   rules:
@@ -17,43 +10,39 @@ image: maven:3.8.6-jdk-11
 
 
 stages:
-- ".pre"
-- pull
+# - ".pre"
+# - pull
 - build
-- remove-d
-- build-image
+# - remove-d
+# - build-image
 - test
 # - fuzz
 # - dast
-- performance
-- ".post"
+# - performance
+# - ".post"
 include:
-# - template: Jobs/Code-Quality.gitlab-ci.yml
-# - local: Dependency-Scanning.gitlab-ci.yml
 - template: Security/SAST.gitlab-ci.yml
-# - template: Jobs/License-Scanning.gitlab-ci.yml
+
 # - template: Security/Coverage-Fuzzing.gitlab-ci.yml
-# - template: Security/Container-Scanning.gitlab-ci.yml
-# - template: Security/DAST.gitlab-ci.yml
-# - template: Security/Secret-Detection.gitlab-ci.yml
 
-".pre":
-  stage: ".pre"
-  script:
-  - echo "pre stage"
-  tags:
-  - java_deploy
 
-pull-code:
-  stage: pull
-  only:
-  - main
-  tags:
-  - java_deploy
-  script:
-  - echo "preparing data and dependencies..."
-  - pwd
-  - ls
+# ".pre":
+#   stage: ".pre"
+#   script:
+#   - echo "pre stage"
+#   tags:
+#   - java_deploy
+
+# pull-code:
+#   stage: pull
+#   only:
+#   - main
+#   tags:
+#   - java_deploy
+#   script:
+#   - echo "preparing data and dependencies..."
+#   - pwd
+#   - ls
 
 # code_quality:
 #   stage: test
@@ -132,7 +121,7 @@ build-code:
   only:
   - main
   tags:
-  - java_deploy
+  - aktest
   before_script:
   - echo "=======change permission ======="
   - chmod +x maveninstall.sh
@@ -147,34 +136,34 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
-remove-old-docker:
-  stage: remove-d
-  only:
-  - main
-  tags:
-  - java_deploy
-  before_script:
-  - echo "change permission of dockerrmf.sh"
-  - chmod +x dockerrmf.sh
-  script:
-  - echo "Starting remove old docker image and container"
-  - "./dockerrmf.sh"
-  - echo "Removed all docker image and container"
+# remove-old-docker:
+#   stage: remove-d
+#   only:
+#   - main
+#   tags:
+#   - java_deploy
+#   before_script:
+#   - echo "change permission of dockerrmf.sh"
+#   - chmod +x dockerrmf.sh
+#   script:
+#   - echo "Starting remove old docker image and container"
+#   - "./dockerrmf.sh"
+#   - echo "Removed all docker image and container"
 
-build-docker-image:
-  stage: build-image
-  only:
-  - main
-  tags:
-  - java_deploy
-  needs:
-  - build-code
-  before_script:
-  - chmod +x dockercmd.sh
-  - echo "permission change"
-  script:
-  - "./dockercmd.sh"
-  - echo "====Build And Deploy successfull.... ====="
+# build-docker-image:
+#   stage: build-image
+#   only:
+#   - main
+#   tags:
+#   - java_deploy
+#   needs:
+#   - build-code
+#   before_script:
+#   - chmod +x dockercmd.sh
+#   - echo "permission change"
+#   script:
+#   - "./dockercmd.sh"
+#   - echo "====Build And Deploy successfull.... ====="
 
 
   
