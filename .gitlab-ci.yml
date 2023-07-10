@@ -149,6 +149,12 @@ spotbugs-sast:
       exists:
         - '**/*.xml'
         - '**/*.jsp'
+  artifacts:
+   name: spotbug
+   paths:
+     - gl-spotbug-report.json
+   reports:
+     sast: gl-spotbug-report.json
 
 
 code_quality:
@@ -164,11 +170,11 @@ gemnasium-maven-dependency_scanning:
   tags:
     - aktest
   artifacts:
-   name: dependency_scanning
+   name: maven-dependency_scanning
    paths:
      - gl-sbom-*.cdx.json
    reports:
-     dependency_scanning: gl-sbom-*.cdx.json
+     maven-dependency_scanning: gl-sbom-*.cdx.json
    when: always
 
 # variables:
