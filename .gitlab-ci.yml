@@ -11,15 +11,15 @@ image: maven:3.8.6-jdk-11
 stages:
 - build
 - test
-- deploy
+# - deploy
 
-# include:
-#   - template: Security/SAST.gitlab-ci.yml
-#   - template: Code-Quality.gitlab-ci.yml 
-#   - template: Security/Secret-Detection.gitlab-ci.yml
-#   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
-#   - template: Security/License-Scanning.gitlab-ci.yml
-# # - template: Security/Coverage-Fuzzing.gitlab-ci.yml
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml 
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Jobs/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
+# - template: Security/Coverage-Fuzzing.gitlab-ci.yml
 
 
 build-code:
@@ -56,20 +56,20 @@ sast:
   script:
     - echo "testing the SAST job"
 
-# license_scanning:
-#   stage: test
-#   tags:
-#     - aktest
-#   dependencies: []
-#   rules:
-#     - if: $LICENSE_MANAGEMENT_DISABLED
-#       when: never
-#     - if: $CI_COMMIT_BRANCH &&
-#           $GITLAB_FEATURES =~ /\blicense_scanning\b/
-#   artifacts:
-#     paths:
-#       - gl-license-scanning-report.json 
-#     expire_in: never    
+license_scanning:
+  stage: test
+  tags:
+    - aktest
+  dependencies: []
+  rules:
+    - if: $LICENSE_MANAGEMENT_DISABLED
+      when: never
+    - if: $CI_COMMIT_BRANCH &&
+          $GITLAB_FEATURES =~ /\blicense_scanning\b/
+  artifacts:
+    paths:
+      - gl-license-scanning-report.json 
+    expire_in: never    
 
 code_quality:
   stage: test
@@ -101,15 +101,15 @@ gemnasium-dependency_scanning:
 #   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
 
 
-deploy-code:
-  stage: deploy
-  tags:
-  - portalshell
-  script:
-#    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
-    - cp target/*.war /home/fs-ankita/apache-tomcat-9.0.78/webapps
-#     - /path/to/tomcat/bin/startup.sh
- #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
+# deploy-code:
+#   stage: deploy
+#   tags:
+#   - portalshell
+#   script:
+# #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
+#     - cp target/*.war /home/fs-ankita/apache-tomcat-9.0.78/webapps
+# #     - /path/to/tomcat/bin/startup.sh
+#  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
 
 
