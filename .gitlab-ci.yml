@@ -9,7 +9,7 @@ image: maven:3.8.6-jdk-11
 
 
 stages:
-- build
+# - build
 - test
 # - deploy
 
@@ -22,25 +22,25 @@ include:
 # - template: Security/Coverage-Fuzzing.gitlab-ci.yml
 
 
-build-code:
-  stage: build
-  # only:
-  # - main
-  tags:
-  - aktest
-  before_script:
-  - echo "=======change permission ======="
-  - chmod +x maveninstall.sh
-  script:
-  - echo "==== Project Building Started ====="
-  - "./maveninstall.sh"
-  - echo "code build Successfull..."
-  - pwd
-  when: on_success
-  artifacts:
-    paths:
-    - target/*.war
-    expire_in: 15 days
+# build-code:
+#   stage: build
+#   # only:
+#   # - main
+#   tags:
+#   - aktest
+#   before_script:
+#   - echo "=======change permission ======="
+#   - chmod +x maveninstall.sh
+#   script:
+#   - echo "==== Project Building Started ====="
+#   - "./maveninstall.sh"
+#   - echo "code build Successfull..."
+#   - pwd
+#   when: on_success
+#   artifacts:
+#     paths:
+#     - target/*.war
+#     expire_in: 15 days
 
 sast:
   stage: test
@@ -73,8 +73,8 @@ license_scanning:
 
 code_quality:
   stage: test
-  tags:
-    - aktest  
+  # tags:
+  #   - aktest  
   artifacts:
     paths: [gl-code-quality-report.json] 
     expire_in: never  
