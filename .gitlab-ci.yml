@@ -59,7 +59,7 @@ sast:
 license_scanning:
   stage: test
   tags:
-    - aktest2
+    - aktest
   dependencies: []
   rules:
     - if: $LICENSE_MANAGEMENT_DISABLED
@@ -74,7 +74,7 @@ license_scanning:
 code_quality:
   stage: test
   tags:
-    - aktest2  
+    - aktest  
   artifacts:
     paths: [gl-code-quality-report.json] 
     expire_in: never  
@@ -84,9 +84,9 @@ gemnasium-dependency_scanning:
     DS_MAX_DEPTH: 5
     DS_ANALYZER_NAME: "gemnasium"
     GEMNASIUM_LIBRARY_SCAN_ENABLED: "true"
-  stage: test
+#  stage: test
   tags:
-    - aktest2
+    - aktest
   artifacts:
     name: dependency-scanning
     paths:
