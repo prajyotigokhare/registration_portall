@@ -56,20 +56,20 @@ sast:
   script:
     - echo "testing the SAST job"
 
-license_scanning:
-  stage: test
-  tags:
-    - aktest
-  dependencies: []
-  rules:
-    - if: $LICENSE_MANAGEMENT_DISABLED
-      when: never
-    - if: $CI_COMMIT_BRANCH &&
-          $GITLAB_FEATURES =~ /\blicense_scanning\b/
-  artifacts:
-    paths:
-      - gl-license-scanning-report.json 
-    expire_in: never    
+# license_scanning:
+#   stage: test
+#   tags:
+#     - aktest
+#   dependencies: []
+#   rules:
+#     - if: $LICENSE_MANAGEMENT_DISABLED
+#       when: never
+#     - if: $CI_COMMIT_BRANCH &&
+#           $GITLAB_FEATURES =~ /\blicense_scanning\b/
+#   artifacts:
+#     paths:
+#       - gl-license-scanning-report.json 
+#     expire_in: never    
 
 code_quality:
   stage: test
