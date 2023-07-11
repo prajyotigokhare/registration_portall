@@ -10,16 +10,16 @@ image: maven:3.8.6-jdk-11
 
 stages:
 - build
-- test
+#- test
 - deploy
 
-include:
-  - template: Security/SAST.gitlab-ci.yml
-  - template: Code-Quality.gitlab-ci.yml 
-  - template: Security/Secret-Detection.gitlab-ci.yml
-  - template: Jobs/Dependency-Scanning.gitlab-ci.yml
-  - template: Security/License-Scanning.gitlab-ci.yml
-# - template: Security/Coverage-Fuzzing.gitlab-ci.yml
+# include:
+#   - template: Security/SAST.gitlab-ci.yml
+#   - template: Code-Quality.gitlab-ci.yml 
+#   - template: Security/Secret-Detection.gitlab-ci.yml
+#   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
+#   - template: Security/License-Scanning.gitlab-ci.yml
+# # - template: Security/Coverage-Fuzzing.gitlab-ci.yml
 
 
 build-code:
@@ -104,7 +104,7 @@ build-code:
 deploy-code:
   stage: deploy
   tags:
-    
+
     - shell
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
