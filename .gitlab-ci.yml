@@ -86,8 +86,8 @@ gemnasium-dependency_scanning:
     # GEMNASIUM_LIBRARY_SCAN_ENABLED: "true"
     CI_DEBUG_TRACE: "true"
 #  stage: test
-  tags:
-    - aktest
+  # tags:
+  #   - aktest
 
 
     
