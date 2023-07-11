@@ -89,16 +89,14 @@ gemnasium-dependency_scanning:
 #  stage: test
   # tags:
   #   - aktest
-
-
     
-  # artifacts:
-  #   name: dependency-scanning
-  #   paths:
-  #     - gl-dependency-scanning.json
-  #     - retire-jsrepository.json
-  #     - sbom-manifest.json
-  #   expire_in: never  
+  artifacts:
+    name: dependency-scanning
+    paths:
+      - gl-dependency-scanning.json
+      # - retire-jsrepository.json
+      # - sbom-manifest.json
+    expire_in: never  
     #   dependency-scanning: gl-sbom-*.cdx.json
     # when: always
 # variables:
