@@ -81,7 +81,7 @@ code_quality:
 
 
 
-gemnasium-maven-dependency_scanning:
+gemnasium-dependency_scanning:
   variables:
     DS_MAX_DEPTH: 5
     DS_ANALYZER_NAME: "gemnasium"
