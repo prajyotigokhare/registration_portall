@@ -11,6 +11,7 @@ image: maven:3.8.6-jdk-11
 stages:
 - build
 - test
+- deploy
 
 include:
   - template: Security/SAST.gitlab-ci.yml
@@ -81,7 +82,7 @@ code_quality:
 gemnasium-maven-dependency_scanning:
   variables:
     DS_MAX_DEPTH: 5
-    DS_ANALYZER_NAME: "gemnasium,maven,python"
+    DS_ANALYZER_NAME: "gemnasium"
     GEMNASIUM_LIBRARY_SCAN_ENABLED: "true"
   stage: test
   tags:
@@ -98,6 +99,17 @@ gemnasium-maven-dependency_scanning:
 # variables:
 #   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
 #   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
+
+
+deploy-code:
+  stage: deploy
+  tags:
+    - portalshell
+  script:
+#    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
+    - cp target/*.war /home/fs-ankita/apache-tomcat-9.0.78/webapps
+#     - /path/to/tomcat/bin/startup.sh
+ #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
 
 
