@@ -104,8 +104,7 @@ build-code:
 deploy-code:
   stage: deploy
   tags:
-
-    - shell
+  - portalshell
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
     - cp target/*.war /home/fs-ankita/apache-tomcat-9.0.78/webapps
