@@ -73,6 +73,8 @@ license_scanning:
 
 code_quality:
   stage: test
+  tags:
+    - aktest  
   artifacts:
     paths: [gl-code-quality-report.json] 
     expire_in: never  
