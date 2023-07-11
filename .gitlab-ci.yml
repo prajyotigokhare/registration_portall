@@ -84,9 +84,13 @@ gemnasium-dependency_scanning:
     DS_MAX_DEPTH: 5
     DS_ANALYZER_NAME: "gemnasium"
     GEMNASIUM_LIBRARY_SCAN_ENABLED: "true"
+    CI_DEBUG_TRACE: "true"
 #  stage: test
   tags:
     - aktest
+
+
+    
   # artifacts:
   #   name: dependency-scanning
   #   paths:
