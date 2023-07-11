@@ -42,63 +42,63 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
-# sast:
-#   stage: test
-#   tags:
-#     - aktest
-#   artifacts:
-#    name: sast
-#    paths:
-#      - gl-sast-report.json
-#    reports:
-#      sast: gl-sast-report.json
-#    when: always
-#   script:
-#     - echo "testing the SAST job"
+sast:
+  stage: test
+  tags:
+    - aktest
+  artifacts:
+   name: sast
+   paths:
+     - gl-sast-report.json
+   reports:
+     sast: gl-sast-report.json
+   when: always
+  script:
+    - echo "testing the SAST job"
 
-# license_scanning:
-#   stage: test
-#   tags:
-#     - aktest
-#   dependencies: []
-#   rules:
-#     - if: $LICENSE_MANAGEMENT_DISABLED
-#       when: never
-#     - if: $CI_COMMIT_BRANCH &&
-#           $GITLAB_FEATURES =~ /\blicense_scanning\b/
-#   artifacts:
-#     paths:
-#       - gl-license-scanning-report.json 
-#     expire_in: never    
+license_scanning:
+  stage: test
+  tags:
+    - aktest
+  dependencies: []
+  rules:
+    - if: $LICENSE_MANAGEMENT_DISABLED
+      when: never
+    - if: $CI_COMMIT_BRANCH &&
+          $GITLAB_FEATURES =~ /\blicense_scanning\b/
+  artifacts:
+    paths:
+      - gl-license-scanning-report.json 
+    expire_in: never    
 
-# code_quality:
-#   stage: test
-#   tags:
-#     - aktest  
-#   artifacts:
-#     paths: [gl-code-quality-report.json] 
-#     expire_in: never  
+code_quality:
+  stage: test
+  tags:
+    - aktest  
+  artifacts:
+    paths: [gl-code-quality-report.json] 
+    expire_in: never  
 
-# gemnasium-dependency_scanning:
-#   variables:
-#     DS_MAX_DEPTH: 5
-#     DS_ANALYZER_NAME: "gemnasium"
-#     GEMNASIUM_LIBRARY_SCAN_ENABLED: "true"
-# #  stage: test
-#   tags:
-#     - aktest
-#   artifacts:
-#     name: dependency-scanning
-#     paths:
-#       - gl-dependency-scanning.json
-#       - retire-jsrepository.json
-#       - sbom-manifest.json
-#     expire_in: never  
-#     #   dependency-scanning: gl-sbom-*.cdx.json
-#     # when: always
-# # variables:
-# #   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
-# #   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
+gemnasium-dependency_scanning:
+  variables:
+    DS_MAX_DEPTH: 5
+    DS_ANALYZER_NAME: "gemnasium"
+    GEMNASIUM_LIBRARY_SCAN_ENABLED: "true"
+#  stage: test
+  tags:
+    - aktest
+  artifacts:
+    name: dependency-scanning
+    paths:
+      - gl-dependency-scanning.json
+      - retire-jsrepository.json
+      - sbom-manifest.json
+    expire_in: never  
+    #   dependency-scanning: gl-sbom-*.cdx.json
+    # when: always
+# variables:
+#   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
+#   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
 
 
 deploy-code:
