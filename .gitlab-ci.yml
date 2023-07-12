@@ -82,7 +82,7 @@ code_quality:
 gemnasium-maven-dependency_scanning:
   stage: test
   tags:
-    - pysast
+    - aktest
   artifacts:
    name: dependency_scanning
    paths:
