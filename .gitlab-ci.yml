@@ -9,7 +9,7 @@
 
 
 stages:
-# - build
+- build
 - test
 # - deploy
 
@@ -19,28 +19,28 @@ include:
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
-# - template: Security/Coverage-Fuzzing.gitlab-ci.yml
 
 
-# build-code:
-#   stage: build
-#   # only:
-#   # - main
-#   tags:
-#   - aktest
-#   before_script:
-#   - echo "=======change permission ======="
-#   - chmod +x maveninstall.sh
-#   script:
-#   - echo "==== Project Building Started ====="
-#   - "./maveninstall.sh"
-#   - echo "code build Successfull..."
-#   - pwd
-#   when: on_success
-#   artifacts:
-#     paths:
-#     - target/*.war
-#     expire_in: 15 days
+
+build-code:
+  stage: build
+  # only:
+  # - main
+  tags:
+  - aktest
+  before_script:
+  - echo "=======change permission ======="
+  - chmod +x maveninstall.sh
+  script:
+  - echo "==== Project Building Started ====="
+  - "./maveninstall.sh"
+  - echo "code build Successfull..."
+  - pwd
+  when: on_success
+  artifacts:
+    paths:
+    - target/*.war
+    expire_in: 15 days
 
 sast:
   stage: test
