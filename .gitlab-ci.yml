@@ -93,11 +93,12 @@ gemnasium-dependency_scanning:
   artifacts:
     name: dependency-scanning
     paths:
+      - /gl-sbom-*.cdx.json
       - gl-dependency-scanning-report.json
       # - retire-jsrepository.json
       # - sbom-manifest.json
-    reports:
-      dependency_scanning: gl-dependency-scanning-report.json
+    # reports:
+    #   dependency_scanning: gl-dependency-scanning-report.json
     expire_in: never  
     #   dependency-scanning: gl-sbom-*.cdx.json
     # when: always
