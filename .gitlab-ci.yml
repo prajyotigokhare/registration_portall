@@ -1,5 +1,4 @@
 
-
 stages:
   - build
   - test
@@ -7,7 +6,8 @@ stages:
 
 include:
   - template: Security/SAST.gitlab-ci.yml
-  - template: Jobs/Code-Quality.gitlab-ci.yml
+  # - template: Jobs/Code-Quality.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
   # - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
@@ -76,10 +76,10 @@ license_scanning:
 code_quality:
   stage: test
   tags:
-    - aktest
+    - aktest2
   artifacts:
     paths: [gl-code-quality-report.json]
-    expire_in: 30 days
+    expire_in: never
     
 
 
@@ -127,7 +127,8 @@ code_quality:
 deploy:
   stage: deploy
   tags:
-  - tomcat-shell
+  # - tomcat-shell
+    - aktest
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
     - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
