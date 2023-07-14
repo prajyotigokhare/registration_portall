@@ -35,8 +35,6 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
-
-
 sast:
   stage: test
   tags:
@@ -70,8 +68,6 @@ license_scanning:
 
 
 code_quality:
-  variables:
-    CODE_QUALITY_IMAGE: registry.gitlab.com/gitlab-org/ci-cd/codequality:latest
   stage: test
   # tags:
   #   - aktest  
