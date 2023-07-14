@@ -1,4 +1,3 @@
-
 stages:
   - build
   - test
@@ -73,14 +72,18 @@ license_scanning:
 #   artifacts:
 #     paths: [gl-code-quality-report.json] 
 #     expire_in: never  
+# code_quality:
+#   stage: test
+#   tags:
+#     - aktest2
+#   artifacts:
+#     paths: [gl-code-quality-report.json]
+#     expire_in: never
 code_quality:
   stage: test
-  tags:
-    - aktest2
   artifacts:
-    paths: [gl-code-quality-report.json]
-    expire_in: never
-    
+    paths: [gl-code-quality-report.json]  
+
 
 
 # gemnasium-maven-dependency_scanning:
