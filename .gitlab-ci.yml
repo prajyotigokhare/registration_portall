@@ -123,15 +123,15 @@ gemnasium-maven-dependency_scanning:
 #   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
 
 
-# deploy-code:
-#   stage: deploy
-#   tags:
-#   - portalshell
-#   script:
-# #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
-#     - cp target/*.war /home/fs-ankita/apache-tomcat-9.0.78/webapps
-# #     - /path/to/tomcat/bin/startup.sh
-#  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
+deploy:
+  stage: deploy
+  tags:
+  - tomcat-shell
+  script:
+#    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
+    - cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
+#     - /path/to/tomcat/bin/startup.sh
+ #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
 
 
