@@ -5,8 +5,6 @@ stages:
 
 include:
   - template: Security/SAST.gitlab-ci.yml
-  # - template: Jobs/Code-Quality.gitlab-ci.yml
-  # - template: Code-Quality.gitlab-ci.yml
   - template: Jobs/Code-Quality.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
   # - template: Jobs/Dependency-Scanning.gitlab-ci.yml
@@ -37,6 +35,8 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
+
+
 sast:
   stage: test
   tags:
@@ -50,6 +50,8 @@ sast:
    when: always
   script:
     - echo "testing the SAST job"
+
+
 
 license_scanning:
   stage: test
@@ -66,7 +68,10 @@ license_scanning:
       - gl-license-scanning-report.json 
     expire_in: never    
 
+
 code_quality:
+  variables:
+    CODE_QUALITY_IMAGE: registry.gitlab.com/gitlab-org/ci-cd/codequality:latest
   stage: test
   # tags:
   #   - aktest  
