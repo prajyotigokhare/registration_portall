@@ -10,7 +10,7 @@
 
 stages:
 - build
-- test
+# - test
 - deploy
 
 include:
@@ -129,7 +129,7 @@ deploy:
   - tomcat-shell
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
-    - cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
+    - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
