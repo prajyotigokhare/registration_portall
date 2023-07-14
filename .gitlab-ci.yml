@@ -24,18 +24,21 @@ include:
 
 build-code:
   stage: build
+  image: maven
   # only:
   # - main
   tags:
   - aktest
-  before_script:
-  - echo "=======change permission ======="
-  - chmod +x maveninstall.sh
+  # before_script:
+  # - echo "=======change permission ======="
+  # - chmod +x maveninstall.sh
   script:
   - echo "==== Project Building Started ====="
-  - "./maveninstall.sh"
+  # - "./maveninstall.sh"
+  - mvn clean install
   - echo "code build Successfull..."
   - pwd
+  - ls
   when: on_success
   artifacts:
     paths:
