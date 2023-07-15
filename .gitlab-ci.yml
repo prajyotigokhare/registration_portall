@@ -36,7 +36,7 @@ code_quality_html:
   stage: test
   tags:
     - aktest
-  extends: code_quality
+  # extends: code_quality
   variables:
     REPORT_FORMAT: html
   artifacts:
