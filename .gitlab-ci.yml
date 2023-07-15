@@ -111,8 +111,8 @@ dast:
   stage: dast
   tags :
     - aktest
-  image:
-    name: "$SECURE_ANALYZERS_PREFIX/dast:$DAST_VERSION$DAST_IMAGE_SUFFIX"
+  # image:
+  #   name: "$SECURE_ANALYZERS_PREFIX/dast:$DAST_VERSION$DAST_IMAGE_SUFFIX"
   artifacts:
     paths:
      - gl-dast-report.json
