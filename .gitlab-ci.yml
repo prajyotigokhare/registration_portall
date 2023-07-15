@@ -77,17 +77,21 @@ code_quality:
 
 
 
-
 gemnasium-maven-dependency_scanning:
+  extends:
+    - .ds-analyzer
+    - .cyclonedx-reports
+  variables:
+    DS_ANALYZER_NAME: "gemnasium-maven"
   stage: test
   tags:
     - aktest
   artifacts:
-    name: gemnasuim-maven-dependency_scanning
     paths:
      - gl-sbom-*.cdx.json
-    reports:
-      gemnasuim-maven-dependency_scanning: gl-sbom-*.cdx.json
+     - gl-dependency-scanning-report.json
+    # reports:
+    #  dependency_scanning: gl-sbom-*.cdx.json
 
     # when: always
 ##########################################################
