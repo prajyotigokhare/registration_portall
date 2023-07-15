@@ -92,7 +92,7 @@ gemnasium-maven-dependency_scanning:
     - aktest
   artifacts:
     paths:
-     - gl-sbom-*.cdx.json
+    # - gl-sbom-*.cdx.json
      - gl-dependency-scanning-report.json
     expire_in: never 
 
