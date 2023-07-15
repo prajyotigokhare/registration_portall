@@ -15,7 +15,7 @@ include:
 code_quality:
   stage: test
   tags:
-    - aktest  
+    - aktest
   artifacts:
     paths: [gl-code-quality-report.json] 
     expire_in: never 
@@ -88,11 +88,19 @@ gemnasium-maven-dependency_scanning:
     paths:
      - gl-sbom-*.cdx.json
      - gl-dependency-scanning-report.json
-    # reports:
-    #  dependency_scanning: gl-sbom-*.cdx.json
+    expire_in: never 
 
-    # when: always
 
+deploy:
+  stage: deploy
+  tags:
+  # - tomcat-shell
+    - portalshell
+  script:
+#    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
+    - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
+#     - /path/to/tomcat/bin/startup.sh
+ #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
 dast:
   stage: dast
@@ -104,53 +112,8 @@ dast:
   #   GIT_STRATEGY: none
   # # allow_failure: true
   artifacts:
-    reports:
-      dast: gl-dast-report.json
-
-
-
-##########################################################
-# gemnasium-dependency_scanning:
-#   variables:
-#     # DS_MAX_DEPTH: 5
-#     # DS_ANALYZER_NAME: "gemnasium"
-#     # GEMNASIUM_LIBRARY_SCAN_ENABLED: "true"
-#     SECURE_LOG_LEVEL: "debug"
-
-# #  stage: test
-#   # tags:
-#   #   - aktest
-    
-#   artifacts:
-#     name: dependency-scanning
-#     paths:
-#       - /gl-sbom-*.cdx.json
-#       - gl-dependency-scanning-report.json
-#       # - retire-jsrepository.json
-#       # - sbom-manifest.json
-#     # reports:
-#     #   dependency_scanning: gl-dependency-scanning-report.json
-#     expire_in: never  
-#     #   dependency-scanning: gl-sbom-*.cdx.json
-#     # when: always
-
-# variables:
-#   IMAGE: registry.gitlab.com/fineshift/java_deploy:latest
-#   DOCKERFILE_PATH: "$CI_PROJECT_DIR/Dockerfile"
-
-
-deploy:
-  stage: deploy
-  tags:
-  # - tomcat-shell
-    - aktest
-  script:
-#    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
-    - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
-#     - /path/to/tomcat/bin/startup.sh
- #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
-
-
+    paths:
+     - gl-dast-report.json
 
 
 
