@@ -2,6 +2,7 @@ stages:
   - build
   - test
   - deploy
+  - dast
 
 include:
   - template: Security/SAST.gitlab-ci.yml
@@ -9,8 +10,15 @@ include:
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
 
-
+code_quality:
+  stage: test
+  tags:
+    - aktest  
+  artifacts:
+    paths: [gl-code-quality-report.json] 
+    expire_in: never 
 
 build-code:
   stage: build
@@ -67,16 +75,6 @@ license_scanning:
     expire_in: never    
 
 
-code_quality:
-  stage: test
-  tags:
-    - aktest  
-  artifacts:
-    paths: [gl-code-quality-report.json] 
-    expire_in: never  
-
-
-
 gemnasium-maven-dependency_scanning:
   extends:
     - .ds-analyzer
@@ -94,6 +92,23 @@ gemnasium-maven-dependency_scanning:
     #  dependency_scanning: gl-sbom-*.cdx.json
 
     # when: always
+
+
+dast:
+  stage: dast
+  tags :
+    - aktest
+  image:
+    name: "$SECURE_ANALYZERS_PREFIX/dast:$DAST_VERSION$DAST_IMAGE_SUFFIX"
+  # variables:
+  #   GIT_STRATEGY: none
+  # # allow_failure: true
+  artifacts:
+    reports:
+      dast: gl-dast-report.json
+
+
+
 ##########################################################
 # gemnasium-dependency_scanning:
 #   variables:
