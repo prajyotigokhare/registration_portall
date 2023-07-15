@@ -20,19 +20,22 @@ include:
 #     paths: [gl-code-quality-report.json] 
 #     expire_in: never 
 
-code_quality:
-  stage: test
-  image: docker:stable
-  tags:
-    - aktest
-  artifacts:
-    paths:
-      - gl-code-quality-report.json
-    reports:
-      codequality: gl-code-quality-report.json
-    expire_in: never
+# code_quality:
+#   stage: test
+#   image: docker:stable
+#   tags:
+#     - aktest
+#   artifacts:
+#     paths:
+#       - gl-code-quality-report.json
+#     reports:
+#       codequality: gl-code-quality-report.json
+#     expire_in: never
 
 code_quality_html:
+  stage: test
+  tags:
+    - aktest
   extends: code_quality
   variables:
     REPORT_FORMAT: html
