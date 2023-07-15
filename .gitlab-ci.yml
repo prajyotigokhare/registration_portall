@@ -18,16 +18,12 @@ code_quality:
   # tags:
   #   - aktest
   artifacts:
+    name: codequality
     paths: [gl-code-quality-report.json] 
+    reports:
+      codequality: gl-code-quality-report.json
     expire_in: never 
 
-
-code_quality_html:
-  extends: code_quality
-  variables:
-    REPORT_FORMAT: html
-  artifacts:
-    paths: [gl-code-quality-report.html]
 
   
 build-code:
