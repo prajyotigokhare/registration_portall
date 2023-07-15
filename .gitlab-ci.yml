@@ -7,7 +7,7 @@ include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Jobs/Code-Quality.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
-  # - template: Jobs/Dependency-Scanning.gitlab-ci.yml
+  - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
 
 
@@ -69,8 +69,8 @@ license_scanning:
 
 code_quality:
   stage: test
-  # tags:
-  #   - aktest  
+  tags:
+    - aktest  
   artifacts:
     paths: [gl-code-quality-report.json] 
     expire_in: never  
@@ -78,17 +78,18 @@ code_quality:
 
 
 
-# gemnasium-maven-dependency_scanning:
-#   stage: test
-#   tags:
-#     - aktest
-#   artifacts:
-#    name: dependency_scanning
-#    paths:
-#      - gl-sbom-*.cdx.json
-#    reports:
-#      dependency_scanning: gl-sbom-*.cdx.json
-#    when: always
+gemnasium-maven-dependency_scanning:
+  stage: test
+  tags:
+    - aktest
+  artifacts:
+    name: gemnasuim-maven-dependency_scanning
+    paths:
+     - gl-sbom-*.cdx.json
+    reports:
+      gemnasuim-maven-dependency_scanning: gl-sbom-*.cdx.json
+
+    # when: always
 ##########################################################
 # gemnasium-dependency_scanning:
 #   variables:
