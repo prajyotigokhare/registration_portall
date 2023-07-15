@@ -108,11 +108,11 @@ deploy:
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
 dast:
+  variables:
+    DAST_WEBSITE: http://44.207.141.37:8080
   stage: dast
   tags :
     - aktest
-  # image:
-  #   name: "$SECURE_ANALYZERS_PREFIX/dast:$DAST_VERSION$DAST_IMAGE_SUFFIX"
   artifacts:
     paths:
      - gl-dast-report.json
