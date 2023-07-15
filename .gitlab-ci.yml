@@ -99,8 +99,8 @@ gemnasium-maven-dependency_scanning:
 deploy:
   stage: deploy
   tags:
-  # - tomcat-shell
-    - portalshell
+  - tomcat-shell
+    
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
     - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
