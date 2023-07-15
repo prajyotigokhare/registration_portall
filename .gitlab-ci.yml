@@ -15,8 +15,8 @@ include:
 
 code_quality:
   stage: test
-  # tags:
-  #   - aktest
+  tags:
+    - portalshell
   artifacts:
     name: codequality
     paths: [gl-code-quality-report.json] 
