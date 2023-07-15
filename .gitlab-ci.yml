@@ -22,8 +22,9 @@ include:
 
 code_quality:
   stage: test
-  tags:
-    - aktest
+  image: docker:20.10.12
+  # tags:
+  #   - aktest
   artifacts:
     paths:
       - gl-code-quality-report.json
