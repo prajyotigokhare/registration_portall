@@ -99,8 +99,8 @@ gemnasium-maven-dependency_scanning:
 deploy:
   stage: deploy
   tags:
-  - tomcat-shell
-    
+  # - tomcat-shell
+    - portalshell
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
     - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
@@ -111,7 +111,7 @@ dast:
   variables:
     DAST_WEBSITE: http://44.207.141.37:8080
   stage: dast
-  tags :
+  tags:
     - aktest
   artifacts:
     paths:
