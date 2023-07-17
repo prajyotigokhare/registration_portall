@@ -25,6 +25,7 @@ code_quality:
 
 
 
+
 build-code:
   stage: build
   image: maven
