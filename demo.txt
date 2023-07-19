@@ -1,0 +1,1 @@
+An incident is a service disruption or outage that needs to be restored urgently. Incidents are critical in incident management workflows. Use GitLab to triage, respond, and remediate incidents.
