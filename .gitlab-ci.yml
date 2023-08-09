@@ -21,7 +21,7 @@ code_quality:
     paths: [gl-code-quality-report.json] 
     reports:
       codequality: gl-code-quality-report.json
-    expire_in: never 
+    expire_in: never
 
 
 
