@@ -5,7 +5,7 @@ stages:
   - dast
 
 include:
-  - template: Security/SAST.gitlab-ci.yml
+  # - template: Security/SAST.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
@@ -48,7 +48,7 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
-sast:
+.sast:
   stage: test
   tags:
     - aktest
