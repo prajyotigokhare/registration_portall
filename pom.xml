@@ -49,4 +49,9 @@
   		<version>3.0.1</version>
   	</dependency>
   </dependencies>
+  <dependency>
+  <groupId>io.sentry</groupId>
+  <artifactId>sentry</artifactId>
+  <version>6.27.0</version>
+</dependency>
 </project>
