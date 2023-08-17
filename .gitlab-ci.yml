@@ -15,7 +15,7 @@ include:
 code_quality:
   stage: test
   tags:
-    - portalshell
+    - registration_portal_Deepak
   artifacts:
     name: codequality
     paths: [gl-code-quality-report.json] 
@@ -31,7 +31,7 @@ build-code:
   # only:
   # - main
   tags:
-  - aktest
+  - registration_portal_Deepak
   # before_script:
   # - echo "=======change permission ======="
   # - chmod +x maveninstall.sh
@@ -51,7 +51,7 @@ build-code:
 sast:
   stage: test
   tags:
-    - aktest
+    - registration_portal_Deepak
   artifacts:
    name: sast
    paths:
@@ -67,7 +67,7 @@ sast:
 license_scanning:
   stage: test
   tags:
-    - aktest
+    - registration_portal_Deepak
   dependencies: []
   rules:
     - if: $LICENSE_MANAGEMENT_DISABLED
@@ -88,7 +88,7 @@ gemnasium-maven-dependency_scanning:
     DS_ANALYZER_NAME: "gemnasium-maven"
   stage: test
   tags:
-    - aktest
+    - registration_portal_Deepak
   artifacts:
     paths:
      - gl-sbom-*.cdx.json
@@ -99,7 +99,7 @@ gemnasium-maven-dependency_scanning:
 deploy:
   stage: deploy
   tags:
-  - tomcat-shell
+  - registration_portal_Deepak
   environment: Production
     # - portalshell
   script:
@@ -113,7 +113,7 @@ dast:
     DAST_WEBSITE: http://44.207.141.37:8080
   stage: dast
   tags:
-    - aktest
+    - registration_portal_Deepak
   artifacts:
     paths:
      - gl-dast-report.json
