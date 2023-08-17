@@ -5,7 +5,7 @@ stages:
   - dast
 
 include:
-  # - template: Security/SAST.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
@@ -15,13 +15,13 @@ include:
 code_quality:
   stage: test
   tags:
-    - registration_portal_Deepak
+    - portalshell
   artifacts:
     name: codequality
     paths: [gl-code-quality-report.json] 
     reports:
       codequality: gl-code-quality-report.json
-    expire_in: never
+    expire_in: never 
 
 
 
@@ -31,7 +31,7 @@ build-code:
   # only:
   # - main
   tags:
-  - registration_portal_Deepak
+  - aktest
   # before_script:
   # - echo "=======change permission ======="
   # - chmod +x maveninstall.sh
@@ -48,10 +48,10 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
-.sast:
+sast:
   stage: test
   tags:
-    - registration_portal_Deepak
+    - aktest
   artifacts:
    name: sast
    paths:
@@ -67,7 +67,7 @@ build-code:
 license_scanning:
   stage: test
   tags:
-    - registration_portal_Deepak
+    - aktest
   dependencies: []
   rules:
     - if: $LICENSE_MANAGEMENT_DISABLED
@@ -88,7 +88,7 @@ gemnasium-maven-dependency_scanning:
     DS_ANALYZER_NAME: "gemnasium-maven"
   stage: test
   tags:
-    - registration_portal_Deepak
+    - aktest
   artifacts:
     paths:
      - gl-sbom-*.cdx.json
@@ -99,7 +99,7 @@ gemnasium-maven-dependency_scanning:
 deploy:
   stage: deploy
   tags:
-  - registration_portal_Deepak
+  - tomcat-shell
   environment: Production
     # - portalshell
   script:
@@ -113,13 +113,8 @@ dast:
     DAST_WEBSITE: http://44.207.141.37:8080
   stage: dast
   tags:
-    - registration_portal_Deepak
+    - aktest
   artifacts:
     paths:
      - gl-dast-report.json
     expire_in: never 
-
-
-
-  
-  
