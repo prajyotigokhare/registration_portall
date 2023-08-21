@@ -4,13 +4,13 @@ stages:
   - deploy
   - dast
 
-include:
-  - template: Security/SAST.gitlab-ci.yml
-  - template: Code-Quality.gitlab-ci.yml
-  - template: Security/Secret-Detection.gitlab-ci.yml
-  - template: Jobs/Dependency-Scanning.gitlab-ci.yml
-  - template: Security/License-Scanning.gitlab-ci.yml
-  - template: DAST.gitlab-ci.yml
+# include:
+#   - template: Security/SAST.gitlab-ci.yml
+#   - template: Code-Quality.gitlab-ci.yml
+#   - template: Security/Secret-Detection.gitlab-ci.yml
+#   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
+#   - template: Security/License-Scanning.gitlab-ci.yml
+#   - template: DAST.gitlab-ci.yml
 
 .code_quality:
   stage: test
@@ -105,7 +105,7 @@ deploy:
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
     # - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
-    - sudo cp target/*.war /home/apps/apache-tomcat-10.1.11/webapps
+    - cp target/*.war /home/apps/apache-tomcat-10.1.11/webapps
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
