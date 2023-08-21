@@ -12,7 +12,7 @@ include:
   - template: Security/License-Scanning.gitlab-ci.yml
   - template: DAST.gitlab-ci.yml
 
-code_quality:
+.code_quality:
   stage: test
   tags:
     - portalshell
@@ -48,7 +48,7 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
-sast:
+.sast:
   stage: test
   tags:
     - aktest
@@ -64,7 +64,7 @@ sast:
 
 
 
-license_scanning:
+.license_scanning:
   stage: test
   tags:
     - aktest
@@ -80,7 +80,7 @@ license_scanning:
     expire_in: never    
 
 
-gemnasium-maven-dependency_scanning:
+.gemnasium-maven-dependency_scanning:
   extends:
     - .ds-analyzer
     - .cyclonedx-reports
@@ -99,16 +99,17 @@ gemnasium-maven-dependency_scanning:
 deploy:
   stage: deploy
   tags:
-  - tomcat-shell
-  environment: Production
+  - onprem-tomcat
+  environment: QA
     # - portalshell
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
-    - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
+    # - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
+    - sudo cp target/*.war /home/apps/apache-tomcat-10.1.11/webapps
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
-dast:
+.dast:
   variables:
     DAST_WEBSITE: http://44.207.141.37:8080
   stage: dast
