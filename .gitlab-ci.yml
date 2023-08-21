@@ -80,20 +80,20 @@ build-code:
     expire_in: never    
 
 
-.gemnasium-maven-dependency_scanning:
-  extends:
-    - .ds-analyzer
-    - .cyclonedx-reports
-  variables:
-    DS_ANALYZER_NAME: "gemnasium-maven"
-  stage: test
-  tags:
-    - aktest
-  artifacts:
-    paths:
-     - gl-sbom-*.cdx.json
-     - gl-dependency-scanning-report.json
-    expire_in: never 
+# gemnasium-maven-dependency_scanning:
+#   extends:
+#     - .ds-analyzer
+#     - .cyclonedx-reports
+#   variables:
+#     DS_ANALYZER_NAME: "gemnasium-maven"
+#   stage: test
+#   tags:
+#     - aktest
+#   artifacts:
+#     paths:
+#      - gl-sbom-*.cdx.json
+#      - gl-dependency-scanning-report.json
+#     expire_in: never 
 
 
 deploy:
