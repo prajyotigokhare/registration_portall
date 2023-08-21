@@ -4,15 +4,15 @@ stages:
   - deploy
   - dast
 
-# include:
-#   - template: Security/SAST.gitlab-ci.yml
-#   - template: Code-Quality.gitlab-ci.yml
-#   - template: Security/Secret-Detection.gitlab-ci.yml
-#   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
-#   - template: Security/License-Scanning.gitlab-ci.yml
-#   - template: DAST.gitlab-ci.yml
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Jobs/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
 
-.code_quality:
+code_quality:
   stage: test
   tags:
     - portalshell
@@ -48,7 +48,7 @@ build-code:
     - target/*.war
     expire_in: 15 days
 
-.sast:
+sast:
   stage: test
   tags:
     - aktest
@@ -80,27 +80,27 @@ build-code:
     expire_in: never    
 
 
-# gemnasium-maven-dependency_scanning:
-#   extends:
-#     - .ds-analyzer
-#     - .cyclonedx-reports
-#   variables:
-#     DS_ANALYZER_NAME: "gemnasium-maven"
-#   stage: test
-#   tags:
-#     - aktest
-#   artifacts:
-#     paths:
-#      - gl-sbom-*.cdx.json
-#      - gl-dependency-scanning-report.json
-#     expire_in: never 
+gemnasium-maven-dependency_scanning:
+  extends:
+    - .ds-analyzer
+    - .cyclonedx-reports
+  variables:
+    DS_ANALYZER_NAME: "gemnasium-maven"
+  stage: test
+  tags:
+    - aktest
+  artifacts:
+    paths:
+     - gl-sbom-*.cdx.json
+     - gl-dependency-scanning-report.json
+    expire_in: never 
 
 
 deploy:
   stage: deploy
   tags:
   - onprem-tomcat
-  environment: QA
+  environment: Production
     # - portalshell
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
@@ -109,7 +109,7 @@ deploy:
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
-.dast:
+dast:
   variables:
     DAST_WEBSITE: http://44.207.141.37:8080
   stage: dast
