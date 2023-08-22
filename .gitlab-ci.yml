@@ -99,7 +99,7 @@ gemnasium-maven-dependency_scanning:
 deploy:
   stage: deploy
   tags:
-  - tomcat-shell
+  - onprem-tomcat
   environment: Production
     # - portalshell
   script:
@@ -107,6 +107,18 @@ deploy:
     - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
+
+deploy_review:
+  stage: deploy
+  tags:
+  - onprem-tomcat
+  script:
+    - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://192.168.103.79:8080
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 dast:
   variables:
