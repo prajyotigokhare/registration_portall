@@ -104,7 +104,7 @@ deploy:
     # - portalshell
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
-    - cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
+    - cp -r target/*.war /home/apps/apache-tomcat-10.1.11/webapps
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
 
@@ -113,7 +113,7 @@ deploy_review:
   tags:
   - onprem-tomcat
   script:
-    - cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
+    - cp -r target/*.war /home/apps/apache-tomcat-10.1.11/webapps
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: http://192.168.103.79:8080
