@@ -22,7 +22,6 @@ code_quality:
     reports:
       codequality: gl-code-quality-report.json
     expire_in: never
-  when: always
 
 
 build-code:
@@ -42,7 +41,6 @@ build-code:
     - echo "code build Successfull..."
     - pwd
     - ls
-  when: always
   artifacts:
     paths:
       - target/*.war
@@ -58,7 +56,6 @@ sast:
      - gl-sast-report.json
    reports:
      sast: gl-sast-report.json
-  when: always
   script:
     - echo "testing the SAST job"
 
@@ -77,8 +74,7 @@ sast:
   artifacts:
     paths:
       - gl-license-scanning-report.json 
-    expire_in: never
-  when: always    
+    expire_in: never   
 
 
 gemnasium-maven-dependency_scanning:
@@ -95,7 +91,6 @@ gemnasium-maven-dependency_scanning:
      - gl-sbom-*.cdx.json
      - gl-dependency-scanning-report.json
     expire_in: never
-  when: always
 
 
 deploy:
@@ -109,7 +104,6 @@ deploy:
     - cp -r target/*.war /home/apps/apache-tomcat-10.1.11/webapps
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
-  when: always
   dependencies:
     - "build-code"
 
@@ -122,21 +116,9 @@ deploy_review:
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: http://192.168.103.79:8080/studentapp-2.2-SNAPSHOT
-  # rules:
-  #   - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  only:
-    - merge_requests
   dependencies:
     - "build-code"
 
-test-job:
-  stage: build
-  tags:
-    - aktest
-  script:
-    - echo "running for MR only"
-  only:
-    - merge_requests
 
 dast:
   variables:
@@ -148,4 +130,4 @@ dast:
     paths:
      - gl-dast-report.json
     expire_in: never
-  when: always
+
