@@ -21,8 +21,7 @@ code_quality:
     paths: [gl-code-quality-report.json] 
     reports:
       codequality: gl-code-quality-report.json
-    expire_in: never 
-
+    expire_in: never
 
 
 build-code:
@@ -36,16 +35,15 @@ build-code:
   # - echo "=======change permission ======="
   # - chmod +x maveninstall.sh
   script:
-  - echo "==== Project Building Started ====="
+    - echo "==== Project Building Started ====="
   # - "./maveninstall.sh"
-  - mvn clean install
-  - echo "code build Successfull..."
-  - pwd
-  - ls
-  when: on_success
+    - mvn clean install
+    - echo "code build Successfull..."
+    - pwd
+    - ls
   artifacts:
     paths:
-    - target/*.war
+      - target/*.war
     expire_in: 15 days
 
 sast:
@@ -58,7 +56,6 @@ sast:
      - gl-sast-report.json
    reports:
      sast: gl-sast-report.json
-   when: always
   script:
     - echo "testing the SAST job"
 
@@ -77,7 +74,7 @@ sast:
   artifacts:
     paths:
       - gl-license-scanning-report.json 
-    expire_in: never    
+    expire_in: never   
 
 
 gemnasium-maven-dependency_scanning:
@@ -93,7 +90,7 @@ gemnasium-maven-dependency_scanning:
     paths:
      - gl-sbom-*.cdx.json
      - gl-dependency-scanning-report.json
-    expire_in: never 
+    expire_in: never
 
 
 deploy:
@@ -104,10 +101,24 @@ deploy:
     # - portalshell
   script:
 #    - cp path/to/your/war/file.war /path/to/tomcat/webapps/
-    # - sudo cp -r target/*.war /opt/apache-tomcat-9.0.78/webapps
-    - cp target/*.war /home/apps/apache-tomcat-10.1.11/webapps
+    - cp -r target/*.war /home/apps/apache-tomcat-10.1.11/webapps
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
+  dependencies:
+    - "build-code"
+
+deploy_review:
+  stage: deploy
+  tags:
+  - onprem-tomcat
+  script:
+    - cp -r target/*.war /home/apps/apache-tomcat-10.1.11/webapps
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://192.168.103.79:8080/studentapp-2.2-SNAPSHOT
+  dependencies:
+    - "build-code"
+
 
 dast:
   variables:
@@ -118,4 +129,5 @@ dast:
   artifacts:
     paths:
      - gl-dast-report.json
-    expire_in: never 
+    expire_in: never
+
