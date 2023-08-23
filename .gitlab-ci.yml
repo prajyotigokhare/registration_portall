@@ -116,9 +116,18 @@ deploy_review:
     - cp -r target/*.war /home/apps/apache-tomcat-10.1.11/webapps
   environment:
     name: review/$CI_COMMIT_REF_NAME
-    url: http://192.168.103.79:8080
-  # rules:
-  #   - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    url: http://192.168.103.79:8080/studentapp-2.2-SNAPSHOT
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+test-job:
+  stage: build
+  tags:
+    - aktest
+  script:
+    - echo "running for MR only"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 dast:
   variables:
