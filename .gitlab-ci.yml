@@ -21,7 +21,8 @@ code_quality:
     paths: [gl-code-quality-report.json] 
     reports:
       codequality: gl-code-quality-report.json
-    expire_in: never 
+    expire_in: never
+  when: always
 
 
 build-code:
@@ -35,16 +36,16 @@ build-code:
   # - echo "=======change permission ======="
   # - chmod +x maveninstall.sh
   script:
-  - echo "==== Project Building Started ====="
+    - echo "==== Project Building Started ====="
   # - "./maveninstall.sh"
-  - mvn clean install
-  - echo "code build Successfull..."
-  - pwd
-  - ls
-  when: on_success
+    - mvn clean install
+    - echo "code build Successfull..."
+    - pwd
+    - ls
+  when: always
   artifacts:
     paths:
-    - target/*.war
+      - target/*.war
     expire_in: 15 days
 
 sast:
@@ -57,7 +58,7 @@ sast:
      - gl-sast-report.json
    reports:
      sast: gl-sast-report.json
-   when: always
+  when: always
   script:
     - echo "testing the SAST job"
 
@@ -76,7 +77,8 @@ sast:
   artifacts:
     paths:
       - gl-license-scanning-report.json 
-    expire_in: never    
+    expire_in: never
+  when: always    
 
 
 gemnasium-maven-dependency_scanning:
@@ -92,7 +94,8 @@ gemnasium-maven-dependency_scanning:
     paths:
      - gl-sbom-*.cdx.json
      - gl-dependency-scanning-report.json
-    expire_in: never 
+    expire_in: never
+  when: always
 
 
 deploy:
@@ -106,6 +109,7 @@ deploy:
     - cp -r target/*.war /home/apps/apache-tomcat-10.1.11/webapps
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
+  when: always
 
 deploy_review:
   stage: deploy
@@ -139,4 +143,5 @@ dast:
   artifacts:
     paths:
      - gl-dast-report.json
-    expire_in: never 
+    expire_in: never
+  when: always
