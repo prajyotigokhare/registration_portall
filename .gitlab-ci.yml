@@ -24,7 +24,6 @@ code_quality:
     expire_in: never 
 
 
-
 build-code:
   stage: build
   image: maven
@@ -117,8 +116,10 @@ deploy_review:
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: http://192.168.103.79:8080/studentapp-2.2-SNAPSHOT
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  # rules:
+  #   - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  only:
+    - merge_requests
 
 test-job:
   stage: build
@@ -126,8 +127,8 @@ test-job:
     - aktest
   script:
     - echo "running for MR only"
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  only:
+    - merge_requests
 
 dast:
   variables:
