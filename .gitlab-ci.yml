@@ -21,7 +21,8 @@ code_quality:
     paths: [gl-code-quality-report.json] 
     reports:
       codequality: gl-code-quality-report.json
-    expire_in: never 
+    expire_in: never
+  when: always
 
 
 
@@ -42,7 +43,7 @@ build-code:
   - echo "code build Successfull..."
   - pwd
   - ls
-  when: on_success
+  when: always
   artifacts:
     paths:
     - target/*.war
@@ -58,7 +59,7 @@ sast:
      - gl-sast-report.json
    reports:
      sast: gl-sast-report.json
-   when: always
+  when: always
   script:
     - echo "testing the SAST job"
 
@@ -77,7 +78,8 @@ sast:
   artifacts:
     paths:
       - gl-license-scanning-report.json 
-    expire_in: never    
+    expire_in: never
+  when: always    
 
 
 gemnasium-maven-dependency_scanning:
@@ -93,8 +95,24 @@ gemnasium-maven-dependency_scanning:
     paths:
      - gl-sbom-*.cdx.json
      - gl-dependency-scanning-report.json
-    expire_in: never 
+    expire_in: never
+  when: always
 
+deploy_review:
+  stage: deploy
+  tags:
+  - onprem-tomcat
+  script:
+    - cp -r target/*.war /home/apps/apache-tomcat-10.1.11/webapps
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://192.168.103.79:8080/studentapp-2.2-SNAPSHOT
+  dependencies:
+    - "build-code"
+  needs:
+    - build-code
+  # only:
+  #   - merge_requests
 
 deploy:
   stage: deploy
@@ -108,6 +126,8 @@ deploy:
     - cp target/*.war /home/apps/apache-tomcat-10.1.11/webapps
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
+  when: always
+
 
 dast:
   variables:
@@ -118,4 +138,4 @@ dast:
   artifacts:
     paths:
      - gl-dast-report.json
-    expire_in: never 
+    expire_in: never
