@@ -117,8 +117,8 @@ deploy_review:
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: http://192.168.103.79:8080
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  # rules:
+  #   - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 dast:
   variables:
