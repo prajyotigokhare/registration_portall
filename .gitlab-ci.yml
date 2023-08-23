@@ -110,6 +110,8 @@ deploy:
 #     - /path/to/tomcat/bin/startup.sh
  #   - /home/fs-ankita/apache-tomcat-9.0.78/bin
   when: always
+  dependencies:
+    - "build-code"
 
 deploy_review:
   stage: deploy
@@ -124,6 +126,8 @@ deploy_review:
   #   - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   only:
     - merge_requests
+  dependencies:
+    - "build-code"
 
 test-job:
   stage: build
