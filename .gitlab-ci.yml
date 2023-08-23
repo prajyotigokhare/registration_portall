@@ -37,7 +37,7 @@ build-code:
   # - echo "=======change permission ======="
   # - chmod +x maveninstall.sh
   script:
-    - echo "==== Project Building Started ====="
+  - echo "==== Project Building Started ====="
   # - "./maveninstall.sh"
   - mvn clean install
   - echo "code build Successfull..."
