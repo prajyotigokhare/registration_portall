@@ -6,13 +6,13 @@ stages:
 
 include:
   - template: Security/SAST.gitlab-ci.yml
-  - template: Code-Quality.gitlab-ci.yml
+  # - template: Code-Quality.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
-  - template: DAST.gitlab-ci.yml
+  # - template: DAST.gitlab-ci.yml
 
-code_quality:
+.code_quality:
   stage: test
   tags:
     - portalshell
@@ -32,7 +32,8 @@ build-code:
   # only:
   # - main
   tags:
-  - aktest
+  # - aktest
+  - nk-local
   # before_script:
   # - echo "=======change permission ======="
   # - chmod +x maveninstall.sh
@@ -52,7 +53,8 @@ build-code:
 sast:
   stage: test
   tags:
-    - aktest
+    # - aktest
+    - nk-local
   artifacts:
    name: sast
    paths:
@@ -90,7 +92,8 @@ gemnasium-maven-dependency_scanning:
     DS_ANALYZER_NAME: "gemnasium-maven"
   stage: test
   tags:
-    - aktest
+    # - aktest
+    - nk-local
   artifacts:
     paths:
      - gl-sbom-*.cdx.json
@@ -128,20 +131,8 @@ deploy:
   dependencies:
     - "build-code"
 
-deploy_review:
-  stage: deploy
-  tags:
-  - onprem-tomcat
-  script:
-    - cp -r target/*.war /home/apps/apache-tomcat-10.1.11/webapps
-  environment:
-    name: review/$CI_COMMIT_REF_NAME
-    url: http://192.168.103.79:8080/studentapp-2.2-SNAPSHOT
-  dependencies:
-    - "build-code"
 
-
-dast:
+.dast:
   variables:
     DAST_WEBSITE: http://44.207.141.37:8080
   stage: dast
