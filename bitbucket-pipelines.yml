@@ -25,10 +25,14 @@ pipelines:
 
       - step:
           name: Security Scan
+          caches:
+            - maven
+            - sonar
           script:
-            - mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+            - mvn verify sonar:sonar
+            #- mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
             #- mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
-             
+    
       - step:
           runs-on:
              - self.hosted
@@ -37,3 +41,7 @@ pipelines:
           script:
             - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
             - ls /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
+            
+definitions:
+  caches:
+    sonar: ~/.sonar
