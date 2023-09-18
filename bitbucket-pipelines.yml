@@ -19,15 +19,15 @@ definitions:
         script:
           #- mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
           - mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
-      caches:
-       sonar: ~/.sonar
        
     - step: &deploy
         name: Deployment on tomcat
         script:
           - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
           - ls /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
-          
+  caches:
+    sonar: ~/.sonar
+    
 pipelines:
   default:
     - step: *build
