@@ -24,6 +24,9 @@ pipelines:
             - target/*.war
 
       - step:
+          runs-on:
+             - self.hosted
+             - linux.shell
           name: Security Scan
           script:
             - pipe: sonarsource/sonarqube-scan:2.0.1
