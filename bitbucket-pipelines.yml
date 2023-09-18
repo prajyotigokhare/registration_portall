@@ -30,8 +30,9 @@ definitions:
     - step: &deploy
         name: Deployment on tomcat
         script:
+          - whoami
           - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
-          - ls /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
+          - ls -l /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
     
 pipelines:
   default:
