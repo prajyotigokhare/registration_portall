@@ -6,6 +6,7 @@
   <packaging>war</packaging>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <pluginManagement>
     <plugins>
       
       <plugin>
@@ -28,7 +29,15 @@
         <artifactId>tomcat-maven-plugin</artifactId>
         <version>1.0-beta-1</version>
       </plugin>
+      
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.7.0.1746</version>
+      </plugin>
+      
     </plugins>
+    </pluginManagement>
   </build>
    <distributionManagement>
         <repository>
