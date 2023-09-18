@@ -1,6 +1,8 @@
 image: maven:3.6.3
 #The definitions property is used to define resources used elsewhere in your pipeline configuration.
 definitions:
+  caches:
+    sonar: ~/.sonar/cache  # Caching SonarCloud artifacts will speed up your build
   steps:
     - step: &build
         name: Maven Build
@@ -18,15 +20,14 @@ definitions:
           - sonar
         script:
           #- mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
-          - mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
+          #- mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
+          - mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
        
     - step: &deploy
         name: Deployment on tomcat
         script:
           - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
           - ls /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
-  caches:
-    sonar: ~/.sonar
     
 pipelines:
   default:
