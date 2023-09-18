@@ -1,3 +1,5 @@
+image: maven:3.6.3
+
 definitions:
   steps:
     - step: &build
@@ -16,6 +18,14 @@ definitions:
         script:
           - mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
           
-    -step: &deploy
+    - step: &deploy
         name: Deployment on tomcat
         script:
+          - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
+          - ls /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps
+          
+pipelines:
+  default:
+    - step: *build
+    - step: *test
+    - step: *deploy
