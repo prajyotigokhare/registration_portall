@@ -18,7 +18,7 @@ definitions:
           - target/*.war
           
     - step: &test
-        name: Analyze code with Sonarqube
+        name: Analyze code with Sonarcloud
         caches:
           - maven
           - sonar
