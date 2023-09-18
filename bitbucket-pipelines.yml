@@ -25,12 +25,11 @@ pipelines:
 
       - step:
           name: Security Scan
-          clone:
-           depth: full    # SonarCloud scanner needs the full history to assign issues properly
           script:
-            # Run a security scan for sensitive data.
-            # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security.
-            - pipe: atlassian/git-secrets-scan:0.5.1
+            - pipe: sonarsource/sonarqube-scan:2.0.1
+              variables:
+                SONAR_HOST_URL: ${SONAR_HOST_URL}
+                SONAR_TOKEN: ${SONAR_TOKEN}
 
       - step:
           runs-on:
