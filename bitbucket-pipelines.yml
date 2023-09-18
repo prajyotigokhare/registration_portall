@@ -26,7 +26,7 @@ pipelines:
       - step:
           name: Security Scan
           script:
-            - mvn verify sonar:sonar
+            - mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
 
       - step:
           runs-on:
