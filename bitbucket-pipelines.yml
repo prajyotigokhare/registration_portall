@@ -24,15 +24,9 @@ pipelines:
             - target/*.war
 
       - step:
-          runs-on:
-             - self.hosted
-             - linux.shell
           name: Security Scan
           script:
-            - pipe: sonarsource/sonarqube-scan:2.0.1
-              variables:
-                SONAR_HOST_URL: ${SONAR_HOST_URL}
-                SONAR_TOKEN: ${SONAR_TOKEN}
+            - mvn verify sonar:sonar
 
       - step:
           runs-on:
