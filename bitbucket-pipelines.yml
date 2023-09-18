@@ -5,7 +5,7 @@ definitions:
         caches:
           - maven
         script:
-          - mvn clean install
+          - mvn clean package
         artifacts:
           - target/*.war
     - step: &sonar
