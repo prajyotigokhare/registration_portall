@@ -15,9 +15,10 @@ definitions:
         name: Analyze code with Sonarqube
         caches:
           - maven
+          - sonar
         script:
-          - mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
-          
+          #- mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+          - mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
     - step: &deploy
         name: Deployment on tomcat
         script:
