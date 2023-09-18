@@ -19,6 +19,9 @@ definitions:
         script:
           #- mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
           - mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
+      caches:
+       sonar: ~/.sonar
+       
     - step: &deploy
         name: Deployment on tomcat
         script:
