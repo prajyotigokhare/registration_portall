@@ -1,0 +1,21 @@
+image: maven:3-openjdk-11
+
+definitions:
+  steps:
+    - step: &build-step
+        name: SonarQube analysis
+        caches:
+          - maven
+          - sonar
+        script:
+          - mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
+
+  caches:
+    sonar: ~/.sonar
+clone:
+  depth: full
+  
+pipelines:
+  branches:
+    '{master}':
+      - step: *build-step
