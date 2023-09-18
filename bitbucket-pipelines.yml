@@ -16,7 +16,7 @@ definitions:
         caches:
           - maven
         script:
-          - mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+          - mvn clean verify sonar:sonar -Dsonar.token=sqp_1cabd65736eacfa65af9c46d1baadd3941ef4937
           
 pipelines:
   default:
