@@ -1,24 +1,21 @@
-image: maven:3.6.3
+image: maven:3-openjdk-11
 
 definitions:
   steps:
-    - step: &build
-        name: Maven Build
+    - step: &build-step
+        name: SonarQube analysis
         caches:
           - maven
+          - sonar
         script:
-          - mvn clean install
-        artifacts:
-          - target/*.war
-          
-    - step: &sonar
-        name: Analyze code with Sonarqube
-        caches:
-          - maven
-        script:
-          - mvn clean verify sonar:sonar -Dsonar.token=sqp_1cabd65736eacfa65af9c46d1baadd3941ef4937
-          
+          - mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
+  caches:
+    sonar: ~/.sonar
+
+clone:
+  depth: full
+  
 pipelines:
-  default:
-    - step: *build
-    - step: *sonar
+  branches:
+    '{master}':
+      - step: *build-step
