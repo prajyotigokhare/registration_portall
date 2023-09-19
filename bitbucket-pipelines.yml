@@ -17,13 +17,20 @@ definitions:
         artifacts:
           - target/*.war
           
-    - step: &test
-        name: Analyze code with Sonarcloud
+    - step: &build-step
+        name: SonarQube analysis
         caches:
           - maven
           - sonar
         script:
-          - mvn -Bsonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+          - mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
+          #- mvn -Bsonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+  caches:
+    sonar: ~/.sonar
+
+clone:
+  depth: full
+          #- mvn -Bsonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
           #- mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
           #- mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
        
