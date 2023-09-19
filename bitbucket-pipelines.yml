@@ -14,7 +14,6 @@ definitions:
           - maven
         script:
           - mvn clean install
-          - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
         artifacts:
           - target/*.war
           
@@ -32,8 +31,9 @@ definitions:
      - step: &deploy
          name: Deployment on tomcat
          #caches:
-         # - maven
+         # - mave
          script:
+           - mvn clean install
            - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
            - ls -l /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
           
