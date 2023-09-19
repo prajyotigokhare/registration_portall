@@ -65,7 +65,8 @@ definitions:
           - maven
           - sonar
         script:
-          - mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
+          #- mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
+          - mvn verify sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
   caches:
     sonar: ~/.sonar
 
