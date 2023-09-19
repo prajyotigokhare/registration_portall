@@ -27,13 +27,13 @@ definitions:
           #- mvn verify sonar:sonar -Dsonar.projectKey=fs-bitbucket_registration_portal_AYqm6EfyTTYnAsqkkhUh
           - mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
        
-    - step: &deploy
-        name: Deployment on tomcat
-        caches:
-          - maven
-        script:
-          - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
-          - ls -l /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
+    #- step: &deploy
+       # name: Deployment on tomcat
+       # caches:
+       #   - maven
+       # script:
+         # - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
+         # - ls -l /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
           
     - step: &Jfrog
         name: Jfrog Artifactory
@@ -53,5 +53,5 @@ pipelines:
   default:
     - step: *build
     - step: *test
-    - step: *deploy
+    #- step: *deploy
     - step: *Jfrog
