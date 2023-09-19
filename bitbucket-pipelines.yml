@@ -29,13 +29,29 @@ definitions:
        
     - step: &deploy
         name: Deployment on tomcat
+        caches:
+          - maven
         script:
-          - mkdir -p /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
           - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
           - ls -l /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
+          
+    - step: &Jfrog
+        name: Jfrog Artifactory
+        script:
+           - pipe: jfrog/jfrog-setup-cli:2.0.0
+           - source ./jfrog-setup-cli.sh
+           # Download artifacts from Artifactory
+           - jf rt dl artifacts/
+           # Upload artifacts to Artifactory
+           - jf rt u file artifacts/
+           # Collect environment variables
+           - jf rt bce
+           # Publish build info
+           - jf rt bp
     
 pipelines:
   default:
     - step: *build
     - step: *test
     - step: *deploy
+    - step: *Jfrog
