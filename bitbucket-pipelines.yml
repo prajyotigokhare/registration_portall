@@ -17,7 +17,7 @@ definitions:
         artifacts:
           - target/*.war
           
-    - step: &build-step
+    - step: &test
         name: SonarQube analysis
         caches:
           - maven
