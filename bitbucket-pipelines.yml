@@ -34,8 +34,8 @@ definitions:
            - maven
          script:
            - mvn clean install
-           - cp -rvf target/*.war /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
-           - ls -l /home/fs-shubhranshu/Tomcat/apache-tomcat-9.0.78/webapps/
+           - cp -rvf target/*.war /opt/tomcat/webapps/
+           - ls -l /opt/tomcat/webapps/
           
     #- step: &Jfrog
         #name: Jfrog Artifactory
