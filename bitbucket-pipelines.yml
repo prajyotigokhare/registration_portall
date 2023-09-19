@@ -1,12 +1,8 @@
 image: maven:3.6.3
 
-clone:
-  depth: full              # SonarCloud scanner needs the full history to assign issues properly
-
 #The definitions property is used to define resources used elsewhere in your pipeline configuration.
 definitions:
-  caches:
-    sonar: ~/.sonar/cache  # Caching SonarCloud artifacts will speed up your build
+
   steps:
      - step: &build
         name: Maven Build
@@ -38,7 +34,11 @@ definitions:
         #name: Jfrog Artifactory
         #script:
          
- 
+clone:
+  depth: full              # SonarCloud scanner needs the full history to assign issues properly
+  
+  caches:
+    sonar: ~/.sonar/cache  # Caching SonarCloud artifacts will speed up your build
     
 pipelines:
    default:
