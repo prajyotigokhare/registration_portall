@@ -31,7 +31,7 @@ definitions:
      - step: &deploy
          name: Deployment on tomcat
          script:
-           - mkdir /opt/tomcat/webapps/
+           - mkdir -p /opt/tomcat/webapps/
            - cp -rvf target/*.war /opt/tomcat/webapps/
           
     #- step: &Jfrog
