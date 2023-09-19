@@ -1,4 +1,4 @@
-image: atlassian/default-image:3
+image: maven:3.3.9
 
 clone:
   depth: full              # SonarCloud scanner needs the full history to assign issues properly
@@ -30,6 +30,7 @@ definitions:
        
      - step: &deploy
          name: Deployment on tomcat
+         image: tomcat:9.0.80-jre11-temurin-jammy
          #caches:
          # - maven
          script:
