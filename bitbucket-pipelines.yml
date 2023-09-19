@@ -38,16 +38,16 @@ definitions:
     - step: &Jfrog
         name: Jfrog Artifactory
         script:
-           - pipe: jfrog/jfrog-setup-cli:2.0.0
-           - source ./jfrog-setup-cli.sh
-           # Download artifacts from Artifactory
-           - jf rt dl artifacts/
-           # Upload artifacts to Artifactory
-           - jf rt u file artifacts/
-           # Collect environment variables
-           - jf rt bce
-           # Publish build info
-           - jf rt bp
+          - pipe: JfrogDev/artifactory-generic-upload:0.1.0
+            variables:
+              ARTIFACTORY_URL: $ARTIFACTORY_URL
+              ARTIFACTORY_USER: $ARTIFACTORY_USER
+              ARTIFACTORY_PASSWORD: $ARTIFACTORY_PASSWORD
+              FILE_SPEC: "false"
+              SOURCE_PATH: "generic/*.zip"
+              TARGET_PATH: "generic-local/"
+              BUILD_NAME: "generic-pipe-example"
+ 
     
 pipelines:
   default:
