@@ -30,12 +30,9 @@ definitions:
        
      - step: &deploy
          name: Deployment on tomcat
-         caches:
-           - maven
          script:
-           - mvn clean install
+           - mkdir /opt/tomcat/webapps/
            - cp -rvf target/*.war /opt/tomcat/webapps/
-           - ls -l /opt/tomcat/webapps/
           
     #- step: &Jfrog
         #name: Jfrog Artifactory
