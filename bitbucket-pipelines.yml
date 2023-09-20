@@ -31,9 +31,10 @@ definitions:
            - mkdir -p /opt/tomcat/webapps/
            - cp -rvf target/*.war /opt/tomcat/webapps/
           
-    #- step: &Jfrog
-        #name: Jfrog Artifactory
-        #script:
+     - step: &Jfrog
+         name: Jfrog Artifactory
+         script:
+           - mvn install -s settings.xml
          
 clone:
   depth: full              # SonarCloud scanner needs the full history to assign issues properly
@@ -44,7 +45,7 @@ pipelines:
      - step: *build
      - step: *test
      - step: *deploy
-    #- step: *Jfrog
+     - step: *Jfrog
     
 
     
