@@ -117,14 +117,6 @@ under the License.
      |       used together.
      |
     -->
-    <server>
-      <id>${ID}</id>
-      <username>${NEXUS_USERNAME}</username>
-      <password>${NEXUS_PASSWORD}</password>
-    </server>
-    
-    
-    #jfrog integration
     
     <server>
       <username>${security.getCurrentUsername()}</username>
