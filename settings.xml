@@ -128,12 +128,12 @@ under the License.
     
     <server>
       <username>${security.getCurrentUsername()}</username>
-      <password>${security.getEscapedEncryptedPassword()!"*** cmVmdGtuOjAxOjE3MjY3MTYzMDY6VUY2Z0hjNWJJbHJVMEZTSndxZjBnQllGNU9N ***"}</password>
+      <password>${security.getEscapedEncryptedPassword()!"*** cmVmdGtuOjAxOjE3MjY3MTc2NDM6VjRQRERjRWs2bHlZTENxUkw5STY5Rk1hZndz ***"}</password>
       <id>central</id>
     </server>
     <server>
       <username>${security.getCurrentUsername()}</username>
-      <password>${security.getEscapedEncryptedPassword()!"*** cmVmdGtuOjAxOjE3MjY3MTYzMDY6VUY2Z0hjNWJJbHJVMEZTSndxZjBnQllGNU9N ***"}</password>
+      <password>${security.getEscapedEncryptedPassword()!"*** cmVmdGtuOjAxOjE3MjY3MTc2NDM6VjRQRERjRWs2bHlZTENxUkw5STY5Rk1hZndz ***"}</password>
       <id>snapshots</id>
     </server>
 
