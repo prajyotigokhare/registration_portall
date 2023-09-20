@@ -122,6 +122,20 @@ under the License.
       <username>${NEXUS_USERNAME}</username>
       <password>${NEXUS_PASSWORD}</password>
     </server>
+    
+    
+    #jfrog integration
+    
+    <server>
+      <username>${security.getCurrentUsername()}</username>
+      <password>${security.getEscapedEncryptedPassword()!"*** cmVmdGtuOjAxOjE3MjY3MTYzMDY6VUY2Z0hjNWJJbHJVMEZTSndxZjBnQllGNU9N ***"}</password>
+      <id>central</id>
+    </server>
+    <server>
+      <username>${security.getCurrentUsername()}</username>
+      <password>${security.getEscapedEncryptedPassword()!"*** cmVmdGtuOjAxOjE3MjY3MTYzMDY6VUY2Z0hjNWJJbHJVMEZTSndxZjBnQllGNU9N ***"}</password>
+      <id>snapshots</id>
+    </server>
 
     <!-- Another sample, using keys to authenticate.
     <server>
@@ -209,7 +223,41 @@ under the License.
       </repositories>
     </profile>
     -->
-
+     <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>libs-release</name>
+          <url>https://fineshift1.jfrog.io/artifactory/libs-release</url>
+        </repository>
+        <repository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>libs-snapshot</name>
+          <url>https://fineshift1.jfrog.io/artifactory/libs-snapshot</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>libs-release</name>
+          <url>https://fineshift1.jfrog.io/artifactory/libs-release</url>
+        </pluginRepository>
+        <pluginRepository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>libs-snapshot</name>
+          <url>https://fineshift1.jfrog.io/artifactory/libs-snapshot</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>artifactory</id>
+    </profile>
     <!--
      | Here is another profile, activated by the system property 'target-env' with a value of 'dev',
      | which provides a specific path to the Tomcat instance. To use this, your plugin configuration
@@ -245,6 +293,10 @@ under the License.
     </profile>
     -->
   </profiles>
+  
+  <activeProfiles>
+    <activeProfile>artifactory</activeProfile>
+  </activeProfiles>
 
   <!-- activeProfiles
    | List of profiles that are active for all builds.
