@@ -24,19 +24,6 @@
 </configuration>
 </plugin>
 
-<properties>
-  <sonar.host.url>http://localhost:9000</sonar.host.url>
-  <sonar.login>squ_094a1e44ef58fc3b8514ff2ae91bbec23ad68b67</sonar.login>
-  <sonar.language>java</sonar.language>
-  <sonar.scm.provider>git</sonar.scm.provider>
-</properties>
-<plugin>
-  <groupId>org.sonarsource.scanner.maven</groupId>
-  <artifactId>sonar-maven-plugin</artifactId>
-  <version>3.2</version>
-</plugin>
-
-
 </plugins>
 </build>
 <distributionManagement>
