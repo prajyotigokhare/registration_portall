@@ -26,7 +26,11 @@ pipeline {
     
         stage ('Artifactory Configuration') {
             steps {
-               
+                rtServer (
+                    id: "soham123",
+                    url: "https://soham123.jfrog.io/artifactory",
+                    credentialsId: "jfrog-art"
+                    )
               }
         }
         
