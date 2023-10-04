@@ -23,20 +23,16 @@ pipeline {
                }
             }
         }
-       //stage('jfrog-artifactorty')  {
-      //    step('jfrog'){
-           unclassified:
-             jFrogPlatformBuilder:
-               jfrogInstances:
-                   serverId: "soham123"
-                   url: "https://soham123.jfrog.io"
-                   artifactoryUrl: "https://soham123.jfrog.io/artifactory"
-                   distributionUrl: "https://soham123.jfrog.io/distribution"
-                   xrayUrl: "https://soham123.jfrog.io/xray"
-                   credentialsConfig:
-                     credentialsId: "jfrog"
-          //    }
-     //   }
+    
+        stage ('Artifactory Configuration') {
+            steps {
+                rtServer (
+                    id: "soham123",
+                    url: "https://soham123.jfrog.io/artifactory",
+                    credentialsId: "jfrog"
+                )
+              }
+        }
         
        // stage('artifacts'){
        //      steps('jfrog-artifactory-storage') {
