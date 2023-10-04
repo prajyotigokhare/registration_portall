@@ -28,7 +28,7 @@ pipeline {
             steps {
                 rtServer (
                 id: 'soham123',
-                url: 'http://soham123.jfrog.io/artifactory',
+                url: 'http://soham123.jfrog.io/artifactory/demo-generic-local/',
         // If you're using username and password:
                username: 'soham123',
                password: 'Qazmlp@123',
