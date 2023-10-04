@@ -21,11 +21,17 @@ pipeline {
             }
         }
         
-        stage('Deploy') {
-            steps {
-                deploy adapters: [tomcat9(credentialsId: 'TomJen', path: '', url: 'http://localhost:8081//opt/tomcat/webapps/')], contextPath: null, war: '**/*.war'
+        stage('artifacts'){
+             steps('jfrog-artifactory-storage') {
+                jf 'rt build-publish'
+                }
             }
-          }
+        
+        //stage('Deploy') {
+         //   steps {
+          //      deploy adapters: [tomcat9(credentialsId: 'TomJen', path: '', url: 'http://localhost:8081//opt/tomcat/webapps/')], contextPath: null, war: '**/*.war'
+        //    }
+          //}
         }
     }
         
