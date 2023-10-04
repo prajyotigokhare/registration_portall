@@ -23,8 +23,8 @@ pipeline {
                }
             }
         }
-       stage('jfrog-artifactorty')  {
-          step('jfrog'){
+       //stage('jfrog-artifactorty')  {
+        //  step('jfrog'){
            unclassified:
              jFrogPlatformBuilder:
                jfrogInstances:
@@ -35,8 +35,8 @@ pipeline {
                    xrayUrl: "https://soham123.jfrog.io/xray"
                    credentialsConfig:
                      credentialsId: "jfrog"
-               }
-        }
+          //     }
+    //    }
         
        // stage('artifacts'){
        //      steps('jfrog-artifactory-storage') {
