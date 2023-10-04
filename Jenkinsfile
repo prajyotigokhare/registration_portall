@@ -26,20 +26,7 @@ pipeline {
     
         stage ('Artifactory Configuration') {
             steps {
-                rtServer (
-                id: 'soham123',
-                url: 'http://soham123.jfrog.io/artifactory/demo-generic-local/',
-        // If you're using username and password:
-               username: 'soham123',
-               password: 'Qazmlp@123',
-        // If you're using Credentials ID:
-               credentialsId: 'jfrog',
-        // If Jenkins is configured to use an http proxy, you can bypass the proxy when using this Artifactory server:
-               bypassProxy: true,
-        // Configure the connection timeout (in seconds).
-        // The default value (if not configured) is 300 seconds: 
-               timeout: 300
-                )
+               
               }
         }
         
