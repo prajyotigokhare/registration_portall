@@ -1,8 +1,8 @@
 pipeline {
     agent any 
-    tools {
-    jfrog 'jfrog-cli'
-     }
+    //tools {
+    //jfrog 'jfrog-cli'
+    // }
     stages {
         stage('pull code') {
            steps {
