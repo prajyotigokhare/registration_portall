@@ -11,22 +11,22 @@ pipeline {
                }
              }
              
-        stage('build') {
-           steps {
-           sh "mvn clean package"
-               }
-             }
-        //stage('Exec Maven commands') {
-          //  steps {
-            //    dir('maven-examples/maven-example') {
+       // stage('build') {
+      //     steps {
+       //    sh "mvn clean package"
+       //        }
+       //      }
+        stage('Exec Maven commands') {
+            steps {
+                dir('maven-examples/maven-example') {
                     // Configure Maven project's repositories
-               //     jf 'mvn-config --repo-resolve-releases libs-release --repo-resolve-snapshots libs-snapshots --repo-deploy-releases libs-release-local --repo-deploy-snapshots libs-snapshot-local'
+                    jf 'mvn-config --repo-resolve-releases libs-release --repo-resolve-snapshots libs-snapshots --repo-deploy-releases libs-release-local --repo-deploy-snapshots libs-snapshot-local'
 
                     // Install and publish project
-              //      jf 'mvn clean install'
-              //  }
-        //    }
-      //  }
+                   jf 'mvn clean install'
+                }
+            }
+        }
 
         stage('Publish build info') {
             steps {
