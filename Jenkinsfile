@@ -5,7 +5,7 @@ node
     def buildInfo
      
     stage('Poll') {
-      checkout([$class: 'GitSCM', branches: [[name: '*/jfrog']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: '']]])
+      checkout([$class: 'GitSCM', branches: [[name: '*/jfrog']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://madhav_mahamuni@bitbucket.org/fs-bitbucket/registration_portal.git']]])
     }
     stage('Build'){
       rtMaven.tool = 'mvn' // Tool name from Jenkins configuration
@@ -21,7 +21,7 @@ node
       def downloadSpec = """{
           "files": [
           {
-              "pattern": "generic-local/lib/studentapp-2.2-snapshot.war",
+              "pattern": "releases/it/blog/studentapp-2.2-snapshot.war",
               "target": "target/studentapp-2.2-snapshot.war"
           }]
       }"""
