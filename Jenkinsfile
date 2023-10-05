@@ -29,7 +29,6 @@ pipeline {
                 rtServer (
                     id: "jfrog",
                     url: "https://madhav29.jfrog.io/artifactory/generic-local/"
-                    credentialsId: "jfrog-29"
                     )
               }
         }
