@@ -32,17 +32,20 @@ pipeline {
           //          )
           //    }
       //  }
-        
-        def server = Artifactory.server 'jfrog'
-                def uploadSpec = """{
-                   "files": [{
-                     "pattern": "${env.WORKSPACE}/target/studentapp-2.2-snapshot.war",
-                      "target": "default-docker-virtual/"
-                   }]
-                }"""
+           stage ('Artifactory Configuration') {
+               steps {
+                 def server = Artifactory.server 'jfrog'
+                   def uploadSpec = """{
+                       "files": [{
+                       "pattern": "${env.WORKSPACE}/target/studentapp-2.2-snapshot.war",
+                       "target": "default-docker-virtual/"
+                     }]
+                  }"""
 
-             def buildInfo = server.upload(uploadSpec) 
-             server.publishBuildInfo buildInfo
+                  def buildInfo = server.upload(uploadSpec) 
+                  server.publishBuildInfo buildInfo
+                  }
+               }
         
        // stage('artifacts'){
        //      steps('jfrog-artifactory-storage') {
