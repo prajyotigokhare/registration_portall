@@ -28,8 +28,8 @@ pipeline {
             steps {
                 rtServer (
                     id: "jfrog",
-                    url: "http://localhost:8082/ui/admin/repositories/remote/master"
-                    credentialsId: "jfrog123"
+                    url: "https://madhav29.jfrog.io/artifactory/generic-local/"
+                    credentialsId: "jfrog-29"
                     )
               }
         }
