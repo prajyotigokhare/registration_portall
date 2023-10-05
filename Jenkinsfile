@@ -1,8 +1,8 @@
 pipeline {
     agent any 
-    //tools {
-    //jfrog 'jfrog-cli'
-    // }
+    tools {
+    jfrog 'jfrog-cli'
+     }
     stages {
         stage('pull code') {
            steps {
@@ -27,9 +27,9 @@ pipeline {
         stage ('Artifactory Configuration') {
             steps {
                 rtServer (
-                    id: "soham123",
-                    url: "https://soham123.jfrog.io/artifactory",
-                    credentialsId: "jfrog-art"
+                    id: "jfrog",
+                    url: "http://localhost:8082/ui/admin/repositories/remote/master"
+                    credentialsId: "jfrog123"
                     )
               }
         }
