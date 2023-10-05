@@ -1,36 +1,30 @@
 pipeline {
     agent any 
-      tools{
-      jfrog 'jfrog-cli'
-      }
+       environment{
+       CI = true
+       ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory_access_token')
+       JFROG_PASSWORD = credentials('jfrog-password')
+       }
+       
       stages {
       
         stage('pull code') {
            steps {
-           git credentialsId: 'BitJen', url: 'https://madhav_mahamuni@bitbucket.org/fs-bitbucket/registration_portal.git'
+           git branch: 'jenkins', credentialsId: 'BitJen', url: 'https://madhav_mahamuni@bitbucket.org/fs-bitbucket/registration_portal.git'
                }
              }
              
-       // stage('build') {
-      //     steps {
-       //    sh "mvn clean package"
-       //        }
-       //      }
-        stage('Exec Maven commands') {
-            steps {
-                dir('maven-examples/maven-example') {
-                    // Configure Maven project's repositories
-                    jf 'mvn-config --repo-resolve-releases libs-release --repo-resolve-snapshots libs-snapshots --repo-deploy-releases libs-release-local --repo-deploy-snapshots libs-snapshot-local'
-
-                    // Install and publish project
-                   jf 'mvn clean install'
-                }
-            }
-        }
+        stage('build') {
+           steps {
+           sh "./mvnw install"
+              }
+           }
+        
 
         stage('Publish build info') {
             steps {
-                jf 'rt build-publish'
+                sh 'jf rt upload --url https://madhav29.jfrog.io/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/sudentapp-2.2_snapshot.war java-web-app/'
+                
             }
         }
     }
