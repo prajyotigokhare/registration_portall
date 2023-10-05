@@ -1,31 +1,33 @@
 pipeline {
     agent any 
-    stages {
+       environment{
+       CI = true
+       ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory_access_token')
+       JFROG_PASSWORD = credentials('jfrog-password')
+       }
+       
+      stages {
+      
         stage('pull code') {
            steps {
-           git credentialsId: '123', url: 'https://prajyotii@bitbucket.org/fs-bitbucket/registration_portal.git'
+           git branch: 'master', url: 'https://madhav_mahamuni@bitbucket.org/fs-bitbucket/registration_portal.git'
                }
              }
              
         stage('build') {
            steps {
-           sh "mvn clean package"
-               }
-             }
-             
-        stage('Test') {
-             steps('SonarQube Analysis') {
-                withSonarQubeEnv('sonarserver') {
-                    sh "mvn sonar:sonar"
-               }
-            }
-        }
+           sh "./mvnw install"
+              }
+           }
         
-        stage('Deploy') {
+
+        stage('Publish build info') {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://localhost:8081//opt/tomcat/webapps/')], contextPath: null, war: '**/*.war'
+                sh 'jf rt upload --url https://madhav29.jfrog.io/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/sudentapp-2.2_snapshot.war java-web-app/'
+                
             }
-          }
         }
     }
+}
+        
         
