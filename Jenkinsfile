@@ -1,14 +1,16 @@
 pipeline {
-    agent any
-    tools {
-        jfrog 'jfrog-cli'
-    }
-    stages {
-        stage('Clone') {
-            steps {
-                git branch: 'jenkins', url: "https://madhav_mahamuni@bitbucket.org/fs-bitbucket/registration_portal.git"
-            }
-        }
+    agent any 
+      tools{
+      jfrog 'jfrog-cli'
+      }
+      stages {
+      
+        stage('pull code') {
+           steps {
+           git credentialsId: 'BitJen', url: 'https://prajyotii@bitbucket.org/fs-bitbucket/registration_portal.git'
+               }
+             }
+             
         stage('build') {
            steps {
            sh "mvn clean package"
