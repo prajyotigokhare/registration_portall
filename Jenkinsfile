@@ -10,7 +10,7 @@ pipeline {
       
         stage('pull code') {
            steps {
-           git branch: 'master', url: 'https://madhav_mahamuni@bitbucket.org/fs-bitbucket/registration_portal.git'
+           git branch: 'master', credentials: 'BitJen', url: 'https://madhav_mahamuni@bitbucket.org/fs-bitbucket/registration_portal.git'
                }
              }
              
