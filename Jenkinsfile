@@ -23,7 +23,7 @@ pipeline {
 
         stage('Publish build info') {
             steps {
-                sh 'jf rt upload --url https://madhav29.jfrog.io/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/sudentapp-2.2_snapshot.war java-web-app/'
+                sh 'jf rt upload --url https://madhav29.jfrog.io/ui/repos/tree/General/generic-local --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/sudentapp-2.2_snapshot.war java-web-app/'
                 
             }
         }
