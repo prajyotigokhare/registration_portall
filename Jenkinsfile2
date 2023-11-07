@@ -1,0 +1,13 @@
+pipeline {
+    agent any 
+    
+    stages {
+      
+        stage('pullcode') {
+           steps {
+           git credentialsId: '123', url: 'https://prajyotii@bitbucket.org/fs-bitbucket/fsemp.git'
+               }
+             }
+        }
+
+}
