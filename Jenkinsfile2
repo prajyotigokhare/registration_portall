@@ -1,15 +1,89 @@
+
 pipeline 
 {
     agent any 
      tools {
+     nodejs 'v14.21.3'
      }
      
       stages {
         stage('pull code') {
            steps {
-           git credentialsId: '123', url: 'https://prajyotii@bitbucket.org/fs-bitbucket/fsemp.git'
+           git credentialsId: '123', url: 'https://prajyotii@bitbucket.org/fs-bitbucket/fullstack_java.git'
                }
              }  
-       
+        stage('b-b') 
+        {
+           steps 
+           {
+            dir('backend') 
+            {
+              sh "mvn clean package"
+             }
+            }
+          }
+          stage('b-f') 
+        {
+           steps 
+           {
+           dir('frontend') 
+            {
+            dir('react-frontend')
+            {
+         
+             sh "npm cache clean -force"
+             sh "npm install"
+              
+              }
+            }
+          }        
+       }  
+        
+        stage('T-b') {
+
+             steps('SonarQube Analysis backend') {
+
+                withSonarQubeEnv('sonarserver') {
+
+                    dir('backend') 
+                 {
+                   sh "mvn sonar:sonar"
+                }
+               }
+
+            }
+
+        }
+        
+        stage('T-f') {
+
+             steps('SonarQube Analysis frontend') {
+
+                withSonarQubeEnv('sonarserver') {
+
+                    dir('frontend') 
+                 {
+                  dir('react-frontend')
+                  { 
+                  sh "npm install sonar-scanner"
+                  sh "npm run sonar"
+                  }
+               }
+             }
+          } 
+       }
+       stage ('D-b'){
+         steps {
+        // deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://localhost:8081/')], contextPath: null, onFailure: false, war: '/opt/tomcat/webapps/'
+          
+          //deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '/opt/tomcat/webapps/', url: 'http://localhost:8080/')], contextPath: null, war: '**/*.war'
+         //deploy adapters: [tomcat(credentialsId: 'admin', path: '/home/fs-nidhi/Tomcat/webapps', url: 'http://localhost:8081')], contextPath: '/', war: '/var/lib/jenkins/workspace/ci-cd pipeline/target/*.war'
+         //    /var/lib/jenkins/workspace/fullstack-bb-sonar-jenkins/backend
+         
+         //////deploy adapters: [tomcat(credentialsId: 'admin', path:'/opt/tomcat/webapps', url: 'http://localhost:8081//opt/tomcat/webapps')], contextPath: '/', war: '/var/lib/jenkins/workspace/fullstack-bb-sonar-jenkins/backend/target/*.war'
+         deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://localhost:8081/')], contextPath: null, war: 'backend/target/*.war'
+        // deploy adapters: [tomcat9(credentialsId: 'tomcat', path:'', url: 'http://localhost:8081/')], contextPath: null, onFailure: false, war: '/var/lib/jenkins/workspace/fullstack-bb-sonar-jenkins/backend/target/*.war'
+         }
+       }
   }
 }
