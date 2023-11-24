@@ -21,5 +21,10 @@ pipeline
              snykSecurity( snykInstallation: 'snyk', snykTokenId: 'snykid' )
            }  
          }
+         stage ('Deploy') {
+         steps  {
+         deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://localhost:8081/')], contextPath: null, war: '**/*.war'
+          }
+       }
        }
   }
