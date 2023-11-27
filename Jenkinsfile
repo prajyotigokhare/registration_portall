@@ -1,4 +1,4 @@
-pipeline 
+9pipeline 
 {
     agent any 
      
@@ -18,7 +18,8 @@ pipeline
 
         stage('Test') {
         steps {
-             snykSecurity( snykInstallation: 'snyk', snykTokenId: 'snykid' )
+             //snykSecurity( snykInstallation: 'snyk', snykTokenId: 'snykid' )
+             snykSecurity ( snykInstallation: 'snyk', snykTokenId: 'snykmainorg' )
            }  
          }
          stage ('Deploy') {
