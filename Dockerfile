@@ -1,5 +1,5 @@
 #FROM 10.40.1.4:5000/python:3.7
-FROM python:3.7
+FROM python:3.13.0a4
 #FROM registry.360.one/360one/wealth_distribution/altiore/backend/altiore-proposal/python:3.7
  
 ARG req_file=requirements.txt
